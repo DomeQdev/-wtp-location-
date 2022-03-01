@@ -1,0 +1,60 @@
+body {
+    width: 100%; 
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    font-family: 'Roboto', sans-serif;
+}
+
+.line-number {
+    margin:0 auto;
+    display:block;
+    font-size:15px;
+    font-weight:700
+}
+
+.vehicle-marker {
+    background-color:#fff;
+    box-shadow:1px 4px 7px #8a8a8a;
+    position:relative;
+    border-radius:15px;
+    display:flex;
+    outline:none;
+    align-items:center;
+    padding:0 6px!important;
+}
+
+.bus {
+    color:#006b47!important;
+    border:2px solid #006b47!important;
+}
+.tram {
+    color:#007bff!important;
+    border:2px solid #007bff!important;
+}
+
+.bg-bus {
+    background-color:#006b47!important;
+    color: #fff!important;
+}
+.bg-tram {
+    background-color:#007bff!important;
+    color: #fff!important;
+}
+
+.fill-bus {
+    fill:#006b47!important;
+}
+.fill-tram {
+    fill:#007bff!important;
+}
+
+.leaflet-marker-pane > * {
+    -webkit-transition: transform 0.3s linear;
+    -moz-transition: transform 0.3s linear;
+    -o-transition: transform 0.3 linear;
+    -ms-transition: transform 0.3s linear;
+    transition: transform 0.3s linear;
+}
