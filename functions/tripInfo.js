@@ -1,4 +1,4 @@
-export const onRequestPost = async({ request }) => {
+export const onRequestGet = async({ request }) => {
     const { searchParams } = new URL(request.url);
     const tripId = searchParams.get('trip');
     const vehicleId = searchParams.get('vehicle');
