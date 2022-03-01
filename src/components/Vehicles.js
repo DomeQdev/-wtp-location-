@@ -24,7 +24,7 @@ const Vehicles = ({ vehicles }) => {
                         <VehicleMarker key={vehicle.trip} vehicle={vehicle} clickCallback={() => <Navigate to={`/${vehicle.tab}`} />} />
                     ))}
                 </>} />
-                <Route path="/:type/:bus" element={<ActiveVehicle vehicles={vehicles} />} />
+                <Route path="/:type/:tab" element={<ActiveVehicle vehicles={vehicles} />} />
             </Routes>
         </>
     );
