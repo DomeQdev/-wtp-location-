@@ -14,7 +14,7 @@ const VehicleMarker = ({ vehicle }) => {
                 key={vehicle.trip}
                 position={vehicle.location}
                 eventHandlers={{
-                    click: () => navigate(`/track/${vehicle.type}/${vehicle.tab}`)
+                    click: () => navigate(`/${vehicle.type}/${vehicle.tab}`)
                 }}
                 vehicle={vehicle}
                 icon={divIcon({

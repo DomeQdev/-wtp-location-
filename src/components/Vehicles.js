@@ -3,11 +3,13 @@ import { latLng } from 'leaflet';
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useMapEvents, useMap } from 'react-leaflet';
 import VehicleMarker from './VehicleMarker';
+import ActiveVehicle from './ActiveVehicle';
 
 const Vehicles = ({ vehicles }) => {
     const map = useMap();
     const [bounds, setBounds] = useState(map.getBounds());
     const { veh, line } = JSON.parse(localStorage.getItem('filter') || "{}");
+    const { maxVehicles } = JSON.parse(localStorage.getItem('settings') || "{}");
 
     let filteredVehicles = veh?.length ? vehicles.filter(vehicle => veh.includes(`${vehicle.type}${vehicle.tab}`)) : vehicles;
     filteredVehicles = line?.length ? filteredVehicles.filter(vehicle => line.includes(vehicle.line)) : filteredVehicles;
@@ -18,11 +20,11 @@ const Vehicles = ({ vehicles }) => {
             <Events />
             <Routes>
                 <Route path="/" element={<>
-                    {filteredVehicles.filter(vehicle => bounds.contains(latLng(vehicle.location)) && (vehiclesInBounds < 75 || map.getZoom() > 15)).map(vehicle => (
+                    {filteredVehicles.filter(vehicle => bounds.contains(latLng(vehicle.location)) && (vehiclesInBounds < (maxVehicles || 75) || map.getZoom() > 15)).map(vehicle => (
                         <VehicleMarker key={vehicle.trip} vehicle={vehicle} clickCallback={() => <Navigate to={`/${vehicle.tab}`} />} />
                     ))}
                 </>} />
-                {/*<Route path="/:type/:bus" element={<ActiveVehicle vehicles={vehicles} />} />*/}
+                <Route path="/:type/:bus" element={<ActiveVehicle vehicles={vehicles} />} />
             </Routes>
         </>
     );
