@@ -4,13 +4,12 @@ export const onRequestGet = async({ request }) => {
     const vehicleId = searchParams.get('vehicle');
 
     let now = Date.now();
-    const trip = tripId ? await fetch(`https://new-api.domeqalt.repl.co/get/trip?id=${tripId}`).then(res => res.json()) : null;
-    const vehicle = vehicleId ? await fetch(`https://new-api.domeqalt.repl.co/get/vehicle?veh=${vehicleId}`).then(res => res.json()) : null;
+    const { success, trip, vehicle } = await fetch(`https://new-api.domeqalt.repl.co/get/tripInfo?${tripId ? `trip=${tripId}&` : ""}${vehicleId ? `vehicle=${vehicleId}` : ""}`).then(res => res.json()).catch(() => {});
 
     return new Response(JSON.stringify({
-        success: true,
-        trip: trip?.success ? trip : null,
-        vehicle: vehicle?.success ? vehicle : null,
+        success,
+        trip,
+        vehicle,
         time: Date.now() - now
     }));
 };

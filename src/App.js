@@ -16,7 +16,7 @@ const App = () => {
             maxZoom={18}
             style={{ width: "100%", height: `100vh` }}
         >
-            {darkTheme ? <GlobalStyles styles={{ ".leaflet-tile.leaflet-tile-loaded": { filter: "invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%)" } }} /> : null}
+            {darkTheme ? <GlobalStyles styles={{ ".leaflet-tile": { filter: "invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%)" } }} /> : null}
             <TileLayer url={MapStyle()} />
             <Main />
             <ToastContainer
