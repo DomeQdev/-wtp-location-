@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { latLng } from 'leaflet';
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useMapEvents, useMap } from 'react-leaflet';
 import VehicleMarker from './VehicleMarker';
 import ActiveVehicle from './ActiveVehicle';
@@ -20,8 +20,8 @@ const Vehicles = ({ vehicles }) => {
             <Events />
             <Routes>
                 <Route path="/" element={<>
-                    {filteredVehicles.filter(vehicle => bounds.contains(latLng(vehicle.location)) && (vehiclesInBounds < (maxVehicles || 75) || map.getZoom() > 15)).map(vehicle => (
-                        <VehicleMarker key={vehicle.trip} vehicle={vehicle} clickCallback={() => <Navigate to={`/${vehicle.tab}`} />} />
+                    {filteredVehicles.filter(vehicle => bounds.contains(latLng(vehicle.location)) && (vehiclesInBounds < (maxVehicles || 120) || map.getZoom() > 15)).map(vehicle => (
+                        <VehicleMarker key={vehicle.trip} vehicle={vehicle} />
                     ))}
                 </>} />
                 <Route path="/:type/:tab" element={<ActiveVehicle vehicles={vehicles} />} />

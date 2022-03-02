@@ -2,10 +2,11 @@ import { MapContainer, TileLayer } from 'react-leaflet';
 import { ToastContainer } from 'react-toastify';
 import Main from './components/Main';
 import "leaflet/dist/leaflet.css";
+import { GlobalStyles } from '@mui/material';
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
-    const { customMapStyle, mapStyle } = JSON.parse(localStorage.getItem("settings") || "{}");
+    const { customMapStyle, mapStyle, darkTheme } = JSON.parse(localStorage.getItem("settings") || "{}");
 
     return <>
         <MapContainer
@@ -15,6 +16,7 @@ const App = () => {
             maxZoom={18}
             style={{ width: "100%", height: `100vh` }}
         >
+            {darkTheme ? <GlobalStyles styles={{ ".leaflet-tile.leaflet-tile-loaded": { filter: "invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%)" } }} /> : null}
             <TileLayer url={MapStyle()} />
             <Main />
             <ToastContainer
