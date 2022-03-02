@@ -23,7 +23,7 @@ const ActiveVehicle = ({ vehicles }) => {
     }, [ vehicles ]);
 
     return <>
-        {activeVehicle ? <VehicleMarker vehicle={activeVehicle} trip={trip} active={true} /> : null}
+        {activeVehicle ? <VehicleMarker vehicle={activeVehicle} trip={trip} /> : null}
         {trip ? <Polyline positions={trip?.shapes} pathOptions={{ color: vehicle?.type === "bus" ? "#006b47" : "#007bff", weight: 7 }} /> : null}
     </>;
 };
