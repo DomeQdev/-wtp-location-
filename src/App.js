@@ -5,6 +5,9 @@ import "leaflet/dist/leaflet.css";
 import { GlobalStyles } from '@mui/material';
 import 'react-toastify/dist/ReactToastify.css';
 
+// osmdefault (działa); mapboxbasic (działa); mapboxmonochrame (częściowo, nie polecam); mapboxstreets (działa); mapboxsatellite (Nie wspierane, wygląda jak satelita w sepii); mapboxnavigation (działa) 
+
+
 const App = () => {
     const { customMapStyle, mapStyle, darkTheme } = JSON.parse(localStorage.getItem("settings") || "{}");
 
