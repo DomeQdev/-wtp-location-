@@ -8,15 +8,15 @@ export const onRequestGet = async ({ request }) => {
 
     return new Response(JSON.stringify({
         success,
-        trip: {
+        trip: trip ? {
             line: trip[0],
             alerts: trip[1],
             color: trip[2],
             headsign: trip[3],
             shapes: trip[4],
             stops: trip[5]
-        },
-        vehicle: {
+        } : null,
+        vehicle: vehicle ? {
             brand: vehicle[0],
             model: vehicle[1],
             prodYear: vehicle[2],
@@ -27,7 +27,7 @@ export const onRequestGet = async ({ request }) => {
             depot: vehicle[7],
             features: vehicle[8],
             description: vehicle[9]
-        },
+        } : null,
         time: Date.now() - now
     }));
 };
