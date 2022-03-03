@@ -42,10 +42,10 @@ body {
 }
 
 .stop_marker {
-    width: 3px;
-    height: 3px;
-    padding: 3px;
-    border: 2px solid #8a8a8a!important;
+    width: 5px;
+    height: 5px;
+    padding: 5px;
+    border: 2px solid #006b47!important;
     background-color: #fff;
     display: flex;
     align-items: center;
