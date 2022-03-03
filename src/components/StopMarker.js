@@ -5,16 +5,15 @@ import { nearestPointOnLine, lineString, point } from '@turf/turf';
 
 export default function StopMarker({ stop, trip }) {
     const { properties, geometry } = nearest(stop.location);
-
     return (
         <Marker
-            position={properties?.dist < 30 ? geometry?.coordinates : stop.locatiom}
+            position={properties?.dist < 30 ? geometry?.coordinates : stop.location}
             eventHandlers={{
                 click: () => {}
             }}
             icon={divIcon({
                 className: '',
-                html: renderToStaticMarkup(<button className={`stop_marker`} style={{ border: `3px solid ${trip.color};` }} title={`${stop.name} ${stop.on_request ? "(Ż)" : ""}`}></button>),
+                html: renderToStaticMarkup(<button className={`stop_marker`} style={{ border: `3px solid ${trip.color}` }} title={`${stop.name} ${stop.on_request ? "(Ż)" : ""}`}></button>),
                 iconSize: [6, 6],
                 iconAnchor: [8, 7],
                 popupAnchor: [0, -5]
