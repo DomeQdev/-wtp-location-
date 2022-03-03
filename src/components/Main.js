@@ -9,9 +9,6 @@ const Main = () => {
     useEffect(() => {
         if(connected) return;
         let wss = new WebSocket("wss://ws.domeqalt.repl.co");
-        setConnected(true);
-
-        fetch('/loadVehicles').then(res => res.json()).then(setVehicles);
 
         wss.onopen = () => {
             setConnected(true);
@@ -22,8 +19,13 @@ const Main = () => {
             if(!parsed.length) return toast.error(`Brak danych od UM Warszawa.`, {autoClose: 18500,closeOnClick: false,draggable: false});
             setVehicles(parsed);
         };
-        wss.onclose = () => setConnected(false);
+        wss.onclose = () => {
+            toast.error("Stracono połączenie z serwerem.")
+            setConnected(false);
+        };
     }, [ connected ]);
+
+    useEffect(() => fetch('/loadVehicles').then(res => res.json()).then(setVehicles), []);
 
     return <Vehicles vehicles={vehicles} />;
 };

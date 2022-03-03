@@ -31,7 +31,7 @@ const ActiveVehicle = ({ vehicles }) => {
                 return stop;
             });
             setAPIResponse(res);
-            map.flyTo(v.location, 17);
+            map.setView(v.location, 17);
         });
     }, [ vehicles ]);
 
