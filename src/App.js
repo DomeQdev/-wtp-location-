@@ -1,5 +1,6 @@
 import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
 import { ToastContainer } from 'react-toastify';
+import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
 import Main from './components/Main';
 import "leaflet/dist/leaflet.css";
 import { GlobalStyles } from '@mui/material';
@@ -12,32 +13,34 @@ const App = () => {
     const { customMapStyle, mapStyle, darkTheme } = JSON.parse(localStorage.getItem("settings") || "{}");
 
     return <>
-        <MapContainer
-            center={localStorage.bounds?.split(",") || [52.22983095298667, 21.0117354814593]}
-            zoom={localStorage.zoom || 16}
-            minZoom={7}
-            maxZoom={18}
-            zoomControl={false}
-            style={{ width: "100%", height: `100vh` }}
-        >
-            {darkTheme ? <GlobalStyles styles={{ ".leaflet-tile": { filter: "invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%)" } }} /> : null}
-            <TileLayer url={MapStyle()} />
-            <ZoomControl position="topright" />
-            <Main />
-            <ToastContainer
-                position="top-center"
-                autoClose={7500}
-                hideProgressBar={false}
-                newestOnTop
-                closeOnClick
-                theme="dark"
-                rtl={false}
-                pauseOnFocusLoss={false}
-                limit={5}
-                draggable
-                pauseOnHover={false}
-            />
-        </MapContainer>
+        <ThemeProvider theme={createTheme({palette: {mode: darkTheme ? "dark" : "light"}})}>
+            <MapContainer
+                center={localStorage.bounds?.split(",") || [52.22983095298667, 21.0117354814593]}
+                zoom={localStorage.zoom || 16}
+                minZoom={7}
+                maxZoom={18}
+                zoomControl={false}
+                style={{ width: "100%", height: `100vh` }}
+            >
+                {darkTheme ? <GlobalStyles styles={{ ".leaflet-tile": { filter: "invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%)" } }} /> : null}
+                <TileLayer url={MapStyle()} />
+                <ZoomControl position="topright" />
+                <Main />
+                <ToastContainer
+                    position="top-center"
+                    autoClose={7500}
+                    hideProgressBar={false}
+                    newestOnTop
+                    closeOnClick
+                    theme="dark"
+                    rtl={false}
+                    pauseOnFocusLoss={false}
+                    limit={5}
+                    draggable
+                    pauseOnHover={false}
+                />
+            </MapContainer>
+        </ThemeProvider>
     </>;
 
     function MapStyle() {
