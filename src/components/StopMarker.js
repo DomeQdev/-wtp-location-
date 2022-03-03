@@ -16,7 +16,7 @@ export default function StopMarker({ vehicle, stop, trip }) {
                 html: renderToStaticMarkup(<button className={`stop_marker`} title={`${stop.stop_name} ${stop.on_request ? "(Ż)" : ""}`}><span className={"stop-sequence"}>{stop.stop_sequence}</span></button>),
                 iconSize: [5, 5],
                 iconAnchor: [5, 5],
-                popupAnchor: [0, -5]
+                popupAnchor: [0.5, -5]
             })}
             zIndexOffset={100}
         >
