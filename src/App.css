@@ -73,3 +73,7 @@ body {
     -ms-transition: transform 0.3s linear;
     transition: transform 0.3s linear;
 }
+
+.leaflet-control-attribution {
+    display: none;
+}

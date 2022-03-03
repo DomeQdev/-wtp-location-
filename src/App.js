@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer } from 'react-leaflet';
+import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
 import { ToastContainer } from 'react-toastify';
 import Main from './components/Main';
 import "leaflet/dist/leaflet.css";
@@ -17,10 +17,12 @@ const App = () => {
             zoom={localStorage.zoom || 16}
             minZoom={7}
             maxZoom={18}
+            zoomControl={false}
             style={{ width: "100%", height: `100vh` }}
         >
             {darkTheme ? <GlobalStyles styles={{ ".leaflet-tile": { filter: "invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%)" } }} /> : null}
             <TileLayer url={MapStyle()} />
+            <ZoomControl position="bottomright" />
             <Main />
             <ToastContainer
                 position="top-center"
