@@ -14,13 +14,13 @@ export default function StopMarker({ vehicle, stop, trip }) {
             icon={divIcon({
                 className: '',
                 html: renderToStaticMarkup(<button className={`stop_marker`} title={`${stop.stop_name} ${stop.on_request ? "(Ż)" : ""}`}><span className={"stop-sequence"}>{stop.stop_sequence}</span></button>),
-                iconSize: [5, 5],
+                iconSize: [30, 30],
                 iconAnchor: [5, 5],
                 popupAnchor: [0.5, -5]
             })}
             zIndexOffset={100}
         >
-            <Popup>Cum</Popup>
+            <Popup autoPan={false}><b>{stop.name}</b></Popup>
         </Marker>
     );
 
