@@ -7,7 +7,7 @@ export default function StopMarker({ stop, trip }) {
     const { properties, geometry } = nearest(stop.location);
     return (
         <Marker
-            position={properties?.dist < 30 ? geometry?.coordinates : stop.location}
+            position={properties?.dist < 50 ? geometry?.coordinates : stop.location}
             eventHandlers={{
                 click: () => {}
             }}
