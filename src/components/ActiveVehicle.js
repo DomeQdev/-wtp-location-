@@ -25,8 +25,8 @@ const ActiveVehicle = ({ vehicles }) => {
 
     return <>
         {activeVehicle ? <VehicleMarker vehicle={activeVehicle} trip={trip} /> : null}
-        {trip ? <Polyline positions={trip?.shapes} pathOptions={{ color: vehicle?.type === "bus" ? "#006b47" : "#007bff", weight: 7 }} /> : null}
-        {trip ? trip?.stops.map(stop => <StopMarker vehicle={activeVehicle} stop={stop} trip={trip} />) : null}
+        {trip ? <Polyline positions={trip?.shapes} pathOptions={{ color: trip.color, weight: 7 }} /> : null}
+        {trip ? trip?.stops.map(stop => <StopMarker stop={stop} trip={trip} key={stop.name} />) : null}
     </>;
 };
 

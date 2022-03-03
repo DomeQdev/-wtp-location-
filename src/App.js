@@ -22,7 +22,7 @@ const App = () => {
         >
             {darkTheme ? <GlobalStyles styles={{ ".leaflet-tile": { filter: "invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%)" } }} /> : null}
             <TileLayer url={MapStyle()} />
-            <ZoomControl position="bottomright" />
+            <ZoomControl position="topright" />
             <Main />
             <ToastContainer
                 position="top-center"

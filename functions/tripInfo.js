@@ -11,7 +11,7 @@ export const onRequestGet = async ({ request }) => {
         trip: trip ? {
             line: trip[0],
             alerts: trip[1],
-            color: trip[2],
+            color: `#${trip[2]}`,
             headsign: trip[3],
             shapes: trip[4],
             stops: trip[5]

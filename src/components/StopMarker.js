@@ -3,22 +3,20 @@ import { divIcon } from 'leaflet';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { nearestPointOnLine, lineString, point } from '@turf/turf';
 
-export default function StopMarker({ vehicle, stop, trip }) {
+export default function StopMarker({ stop, trip }) {
     const { properties, geometry } = nearest(stop.location);
-    console.log(properties, geometry)
 
     return (
         <Marker
-            key={stop.stop_id}
             position={properties?.dist < 30 ? geometry?.coordinates : stop.locatiom}
             eventHandlers={{
                 click: () => {}
             }}
             icon={divIcon({
                 className: '',
-                html: renderToStaticMarkup(<button className={`stop_marker`} title={`${stop.name} ${stop.on_request ? "(Ż)" : ""}`}></button>),
-                iconSize: [30, 30],
-                iconAnchor: [4.8, 5],
+                html: renderToStaticMarkup(<button className={`stop_marker`} style={{ border: `3px solid ${trip.color};` }} title={`${stop.name} ${stop.on_request ? "(Ż)" : ""}`}></button>),
+                iconSize: [6, 6],
+                iconAnchor: [8, 7],
                 popupAnchor: [0, -5]
             })}
             zIndexOffset={100}
