@@ -14,7 +14,7 @@ export default function StopMarker({ stop, trip }) {
             icon={divIcon({
                 className: '',
                 html: renderToStaticMarkup(<button className={`stop_marker`} style={{ border: `3px solid ${trip.color}` }} title={`${stop.name} ${stop.on_request ? "(Ż)" : ""}`}></button>),
-                iconSize: [6, 6],
+                iconSize: [30, 30],
                 iconAnchor: [8, 7],
                 popupAnchor: [0, -5]
             })}
