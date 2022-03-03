@@ -11,7 +11,7 @@ const Main = () => {
         let wss = new WebSocket("wss://ws.domeqalt.repl.co");
         setConnected(true);
 
-        fetch('https://ws.domeqalt.repl.co').then(res => res.json()).then(setVehicles);
+        fetch('/loadVehicles').then(res => res.json()).then(setVehicles);
 
         wss.onopen = () => {
             setConnected(true);
@@ -19,7 +19,7 @@ const Main = () => {
         };
         wss.onmessage = ({ data }) => {
             let parsed = JSON.parse(data);
-            if(!parsed.length) return toast.error(`Przepraszamy, z powodu usterki po stronie UM Warszawa, nie otrzymujemy aktualnie danych o lokalizacji pojazdów.`, {autoClose: 18500,closeOnClick: false,draggable: false});
+            if(!parsed.length) return toast.error(`Brak danych od UM Warszawa.`, {autoClose: 18500,closeOnClick: false,draggable: false});
             setVehicles(parsed);
         };
         wss.onclose = () => setConnected(false);

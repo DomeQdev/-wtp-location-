@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import { lineString, point, nearestPointOnLine } from '@turf/turf';
 import StopMarker from "./StopMarker";
 import VehicleMarker from "./VehicleMarker";
-import MetaTags from 'react-meta-tags';
 
 const ActiveVehicle = ({ vehicles }) => {
     const navigate = useNavigate();
@@ -40,10 +39,6 @@ const ActiveVehicle = ({ vehicles }) => {
         {activeVehicle ? <VehicleMarker vehicle={activeVehicle} trip={trip} /> : null}
         {trip ? <Polyline positions={trip?.shapes} pathOptions={{ color: trip.color, weight: 7 }} /> : null}
         {trip ? trip?.stops.map(stop => <StopMarker stop={stop} trip={trip} key={stop.name} />) : null}
-        <MetaTags>
-            <meta property="og:title" content={`${trip?.line} => ${trip?.headsign}`} id="title" />
-            <meta property="og:description" content={Math.random()} id="desc" />
-         </MetaTags>
     </>;
 };
 
