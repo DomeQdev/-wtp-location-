@@ -90,3 +90,7 @@ body {
 .leaflet-control-attribution {
     display: none;
 }
+
+path {
+    pointer-events: none!important;
+}
