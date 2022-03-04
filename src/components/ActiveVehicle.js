@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Polyline, useMap } from 'react-leaflet';
 import { toast } from 'react-toastify';
-import { Drawer, Toolbar, Divider, List, ListItem, ListItemIcon, ListItemText, } from "@mui/material";
-import { Inbox, } from "@mui/icons-material";
+import { Drawer, Divider, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { lineString, point, nearestPointOnLine } from '@turf/turf';
 import StopMarker from "./StopMarker";
 import VehicleMarker from "./VehicleMarker";
@@ -27,8 +26,6 @@ const ActiveVehicle = ({ vehicles }) => {
         setActiveVehicle(v);
         if(!success || id !== v.trip) fetch(`/tripInfo?trip=${v.trip}&vehicle=${type}${tab.split("+")[0]}`).then(res => res.json()).then(res => {
             if(!res.trip && !res.vehicle) return navigate("/");
-        if (!success || id !== v.trip) fetch(`https://wtp-test.2137.workers.dev/tripInfo?trip=${v.trip}&vehicle=${type}${tab.split("+")[0]}`).then(res => res.json()).then(res => {
-            if (!res.trip && !res.vehicle) return navigate("/");
 
             res.trip.stops = res.trip.stops?.map(stop => {
                 stop.onLine = nearestPointOnLine(lineString(res.trip.shapes), point(stop.location), { units: 'meters' }).properties.location;
