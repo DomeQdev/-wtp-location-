@@ -13,8 +13,6 @@ const ActiveVehicle = ({ vehicles }) => {
     const navigate = useNavigate();
     const map = useMap();
 
-    const { darkTheme } = JSON.parse(localStorage.getItem("settings") || "{}");
-
     const { tab, type } = useParams();
     const [activeVehicle, setActiveVehicle] = useState(null);
     const [{ trip, vehicle, success, id }, setAPIResponse] = useState({});
