@@ -28,7 +28,7 @@ const ActiveVehicle = ({ vehicles }) => {
             return navigate("/");
         };
         setActiveVehicle(v);
-        if (!success || id !== v.trip) fetch(`https://wtp-test.2137.workers.dev/tripInfo?trip=${v.trip}&vehicle=${type}${tab.split("+")[0]}`).then(res => res.json()).then(res => {
+        if (!success || id !== v.trip) fetch(`/tripInfo?trip=${v.trip}&vehicle=${type}${tab.split("+")[0]}`).then(res => res.json()).then(res => {
             if (!res.trip && !res.vehicle) return navigate("/");
 
             res.trip.stops = res.trip.stops?.map(stop => {
