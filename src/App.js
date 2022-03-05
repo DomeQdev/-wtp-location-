@@ -1,13 +1,10 @@
 import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
 import { ToastContainer } from 'react-toastify';
-import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Main from './components/Main';
 import "leaflet/dist/leaflet.css";
 import { GlobalStyles } from '@mui/material';
 import 'react-toastify/dist/ReactToastify.css';
-
-// osmdefault (działa); mapboxbasic (działa); mapboxmonochrame (częściowo, nie polecam); mapboxstreets (działa); mapboxsatellite (Nie wspierane, wygląda jak satelita w sepii); mapboxnavigation (działa) 
-
 
 const App = () => {
     const { customMapStyle, mapStyle, darkTheme } = JSON.parse(localStorage.getItem("settings") || "{}");
@@ -20,7 +17,7 @@ const App = () => {
                 minZoom={7}
                 maxZoom={18}
                 zoomControl={false}
-                style={{ width: "100%", height: `100vh` }}
+                style={{ width: "100%", height: "100vh" }}
             >
                 {darkTheme ? <GlobalStyles styles={{ ".leaflet-tile": { filter: "invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%)" } }} /> : null}
                 <TileLayer url={MapStyle()} />

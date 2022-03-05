@@ -2,14 +2,20 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Polyline, useMap } from 'react-leaflet';
 import { toast } from 'react-toastify';
-import { Drawer, Divider, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { BottomSheet } from "react-spring-bottom-sheet";
+import { Avatar, Divider, List, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
+import { PanTool, DirectionsBus, Tram } from '@mui/icons-material';
 import { lineString, point, nearestPointOnLine } from '@turf/turf';
 import StopMarker from "./StopMarker";
 import VehicleMarker from "./VehicleMarker";
 
+import "react-spring-bottom-sheet/dist/style.css"
+
 const ActiveVehicle = ({ vehicles }) => {
     const navigate = useNavigate();
     const map = useMap();
+
+    const { darkTheme } = JSON.parse(localStorage.getItem("settings") || "{}");
 
     const { tab, type } = useParams();
     const [activeVehicle, setActiveVehicle] = useState(null);
@@ -24,8 +30,8 @@ const ActiveVehicle = ({ vehicles }) => {
             return navigate("/");
         };
         setActiveVehicle(v);
-        if(!success || id !== v.trip) fetch(`/tripInfo?trip=${v.trip}&vehicle=${type}${tab.split("+")[0]}`).then(res => res.json()).then(res => {
-            if(!res.trip && !res.vehicle) return navigate("/");
+        if (!success || id !== v.trip) fetch(`https://wtp-test.2137.workers.dev/tripInfo?trip=${v.trip}&vehicle=${type}${tab.split("+")[0]}`).then(res => res.json()).then(res => {
+            if (!res.trip && !res.vehicle) return navigate("/");
 
             res.trip.stops = res.trip.stops?.map(stop => {
                 stop.onLine = nearestPointOnLine(lineString(res.trip.shapes), point(stop.location), { units: 'meters' }).properties.location;
@@ -40,30 +46,32 @@ const ActiveVehicle = ({ vehicles }) => {
         {activeVehicle ? <VehicleMarker vehicle={activeVehicle} trip={trip} /> : null}
         {trip ? <Polyline positions={trip?.shapes} pathOptions={{ color: trip.color, weight: 7 }} /> : null}
         {trip ? trip?.stops.map(stop => <StopMarker stop={stop} trip={trip} key={stop.name} />) : null}
-        <Drawer
-            sx={{
-                width: 290,
-                flexShrink: 0,
-                '& .MuiDrawer-paper': {
-                    width: 290,
-                    boxSizing: 'border-box',
-                },
+        <BottomSheet
+            open={true}
+            onDismiss={() => navigate("/")}
+            blocking={false}
+            style={{
+                zIndex: 30000,
+                position: "absolute",
             }}
-            variant="permanent"
-            anchor="left"
+            header={<div style={{ display: "inline-flex", alignItems: "center" }}>{activeVehicle?.type === "bus" ? <DirectionsBus style={{ height: "22px", width: "22px", fill: trip?.color }} /> : <Tram style={{ height: "22px", width: "22px", fill: trip?.color }} />} <b>{trip?.line}</b>&nbsp;» {trip?.headsign}</div>}
+            snapPoints={({ maxHeight }) => [maxHeight / 4, maxHeight * 0.6]}
         >
             <List>
                 {trip ? trip.stops?.map((stop, i) => (
                     <ListItem button key={stop.name}>
-                        <ListItemIcon>
-                            {i+1}
-                        </ListItemIcon>
-                        <ListItemText primary={stop.name} />
+                        <ListItemAvatar>
+                            <Avatar sx={{ width: 24, height: 24, backgroundColor: vehicle?.type === "bus" ? "#006b47" : "#007bff" }}>
+                                {i + 1}
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText>
+                            {stop.on_request ? <PanTool style={{ width: "15px", height: "15px" }} /> : null} {stop.name}
+                        </ListItemText>
                     </ListItem>
-                )) : null}
+                )).reduce((prev, curr) => [prev, <Divider variant="inset" component="li" key={Math.random()} sx={{ backgroundColor: "#DCCDCD" }} />, curr]) : null}
             </List>
-            <Divider />
-        </Drawer>
+        </BottomSheet>
     </>;
 };
 
