@@ -55,7 +55,7 @@ const ActiveVehicle = ({ vehicles }) => {
                 position: "absolute",
             }}
             header={<div style={{ display: "inline-flex", alignItems: "center" }}>{activeVehicle?.type === "bus" ? <DirectionsBus style={{ height: "22px", width: "22px", fill: trip?.color }} /> : <Tram style={{ height: "22px", width: "22px", fill: trip?.color }} />} <b>{trip?.line}</b>&nbsp;» {trip?.headsign}</div>}
-            snapPoints={({ maxHeight }) => [maxHeight / 4, maxHeight * 0.6]}
+            snapPoints={({ maxHeight }) => [maxHeight / 4, maxHeight * 0.6, maxHeight - 40]}
         >
             <List>
                 {trip ? trip.stops?.map((stop, i) => (
