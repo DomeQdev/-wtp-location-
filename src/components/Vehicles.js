@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { latLng } from 'leaflet';
 import { Routes, Route } from "react-router-dom";
 import { useMapEvents, useMap } from 'react-leaflet';
-import VehicleMarker from './VehicleMarker';
+import VehicleMarker from './ActiveVehicle/VehicleMarker';
 import ActiveVehicle from './ActiveVehicle';
 
 const Vehicles = ({ vehicles }) => {
