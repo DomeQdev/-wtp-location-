@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import "react-spring-bottom-sheet/dist/style.css"
 
-const Sheet = ({ vehicle, trip, vehicleInfo }) => {
+const Sheet = ({ vehicle, trip }) => {
     const navigate = useNavigate();
 
     return (
@@ -22,6 +22,7 @@ const Sheet = ({ vehicle, trip, vehicleInfo }) => {
             snapPoints={({ maxHeight }) => [maxHeight / 4, maxHeight * 0.6, maxHeight - 40]}
         >
             <List>
+            <div style={{borderLeft: `4px solid ${trip?.color}`, marginLeft: '-2px', marginTop: '14px', height: '95%', position: 'absolute', paddingRight: '16px'}} />
                 {trip ? trip.stops?.map((stop, i) => (
                     <ListItem button key={stop.name}>
                         <ListItemAvatar>

@@ -7,8 +7,6 @@ import StopMarker from "./StopMarker";
 import BottomSheet from "./BottomSheet";
 import VehicleMarker from "./VehicleMarker";
 
-import "react-spring-bottom-sheet/dist/style.css"
-
 const ActiveVehicle = ({ vehicles }) => {
     const navigate = useNavigate();
     const map = useMap();
@@ -39,10 +37,10 @@ const ActiveVehicle = ({ vehicles }) => {
     }, [vehicles]);
 
     return <>
-        {activeVehicle ? <VehicleMarker vehicle={activeVehicle} trip={trip} /> : null}
+        {activeVehicle ? <VehicleMarker vehicle={activeVehicle} trip={trip} vehicleInfo={vehicle} /> : null}
         {trip ? <Polyline positions={trip?.shapes} pathOptions={{ color: trip.color, weight: 7 }} /> : null}
         {trip ? trip?.stops.map(stop => <StopMarker stop={stop} trip={trip} key={stop.name} />) : null}
-        <BottomSheet vehicle={activeVehicle} trip={trip} vehicleInfo={vehicle} />
+        <BottomSheet vehicle={activeVehicle} trip={trip} />
     </>;
 };
 
