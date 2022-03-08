@@ -36,7 +36,7 @@ const VehicleMarker = ({ vehicle, trip, vehicleInfo }) => {
             <div style={{ display: "inline-flex", alignItems: "center", fontSize: 14 }}>{vehicle?.type === "bus" ? <DirectionsBus style={{ height: "22px", width: "22px", fill: trip?.color }} /> : <Tram style={{ height: "22px", width: "22px", fill: trip?.color }} />}&nbsp;<b>{vehicleInfo.brand}</b>&nbsp;{vehicleInfo.model} ({vehicle?.tab})</div><br />
             {vehicleInfo?.description ? <b>{vehicleInfo.description}<br /></b> : null}
             {vehicleInfo?.prodYear ? <><b>Rok produkcji:</b> {vehicleInfo.prodYear}<br /></> : null}
-            {vehicleInfo?.registration ? <><b>Rejestracja:</b> {vehicleInfo?.registration}</> : null}
+            {vehicleInfo?.registration ? <><b>Rejestracja:</b> {vehicleInfo?.registration}<br /></> : null}
             {vehicleInfo?.depot ? <><b>Zajezdnia:</b> {vehicleInfo?.depot}</> : null}
         </Popup> : null}    
     </Marker>;
