@@ -3,11 +3,13 @@ import { Avatar, Divider, List, ListItem, ListItemAvatar, ListItemText } from "@
 import { PanTool, DirectionsBus, Tram } from '@mui/icons-material';
 import { lineString, point, nearestPointOnLine } from '@turf/turf';
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 import "react-spring-bottom-sheet/dist/style.css"
 
 const Sheet = ({ vehicle, trip }) => {
     const navigate = useNavigate();
+    const [scrolled, setScrolled] = useState(false);
 
     return (
         <BottomSheet
@@ -22,7 +24,7 @@ const Sheet = ({ vehicle, trip }) => {
             snapPoints={({ maxHeight }) => [maxHeight / 4, maxHeight * 0.6, maxHeight - 40]}
         >
             <List>
-            <div style={{borderLeft: `4px solid ${trip?.color}`, marginLeft: '-2px', marginTop: '14px', height: '95%', position: 'absolute', paddingRight: '16px'}} />
+                <div style={{ borderLeft: `4px solid ${trip?.color}`, marginLeft: '25px', marginTop: '14px', height: '95%', position: 'absolute', paddingRight: '16px' }} />
                 {trip ? trip.stops?.map((stop, i) => (
                     <ListItem button key={stop.name}>
                         <ListItemAvatar>
@@ -30,12 +32,18 @@ const Sheet = ({ vehicle, trip }) => {
                                 {i + 1}
                             </Avatar>
                         </ListItemAvatar>
-                        <ListItemText>
+                        <ListItemText ref={(ref) => {
+                            if (!scrolled && trip.stops.filter(st => whereBus(st) > -35)[0]?.id === stop.id) {
+                                console.log("s")
+                                ref?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                setScrolled(true);
+                            }
+                        }}>
                             <div style={{ float: "left", textAlign: "left", color: whereBus(stop) < -35 ? "#ADADAD" : null }}>
                                 {stop.on_request ? <PanTool style={{ width: "15px", height: "15px" }} /> : null} {stop.name}
                             </div>
                             <div style={{ float: "right", textAlign: "right" }}>
-                                {whereBus(stop) > -35 ? <>za <b>{Math.floor((whereBus(stop) / 7) / 60)}</b> min</> : null}
+                                {whereBus(stop) > -35 ? <>chyba przyjedzie</> : null}
                             </div>
                         </ListItemText>
                     </ListItem>
@@ -45,7 +53,7 @@ const Sheet = ({ vehicle, trip }) => {
     );
 
     function whereBus(stop) {
-        if(!vehicle?.location) return 0;
+        if (!vehicle?.location) return 0;
         return stop.onLine - nearestPointOnLine(lineString(trip?.shapes), point(vehicle?.location), { units: 'meters' }).properties.location;
     }
 }
