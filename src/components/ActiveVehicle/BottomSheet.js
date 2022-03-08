@@ -24,7 +24,7 @@ const Sheet = ({ vehicle, trip }) => {
             snapPoints={({ maxHeight }) => [maxHeight / 4, maxHeight * 0.6, maxHeight - 40]}
         >
             <List>
-                <div style={{ borderLeft: `4px solid ${trip?.color}`, marginLeft: '25px', marginTop: '14px', height: '95%', position: 'absolute', paddingRight: '16px' }} />
+                <div style={{ borderLeft: `4px solid ${trip?.color}`, marginLeft: '26px', marginTop: '14px', height: '95%', position: 'absolute', paddingRight: '16px' }} />
                 {trip ? trip.stops?.map((stop, i) => (
                     <ListItem button key={stop.name}>
                         <ListItemAvatar>
