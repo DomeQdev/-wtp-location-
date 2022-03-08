@@ -1,9 +1,10 @@
 import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
 import { ToastContainer } from 'react-toastify';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import Main from './components/Main';
-import "leaflet/dist/leaflet.css";
 import { GlobalStyles } from '@mui/material';
+import Main from './components/Main';
+
+import "leaflet/dist/leaflet.css";
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
