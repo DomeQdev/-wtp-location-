@@ -16,8 +16,8 @@ const Main = () => {
         };
         wss.onmessage = ({ data }) => {
             let parsed = JSON.parse(data);
-            if(!parsed.length) return toast.error(`Brak danych od UM Warszawa.`, {autoClose: 18500,closeOnClick: false,draggable: false});
             setVehicles(parsed);
+            if(!parsed.length) return toast.error(`Nie otrzymano informacji zwrotnej o położeniu pojazdów.`, { autoClose: 12500, closeOnClick: false, draggable: false });
         };
         wss.onclose = () => {
             toast.error("Stracono połączenie z serwerem.")
