@@ -32,6 +32,10 @@ const ActiveVehicle = ({ vehicles }) => {
                 return stop;
             });
             setAPIResponse(res);
+
+            res.trip.alerts.map(alert => toast.warn(`${alert.title} »`, { 
+                onClick: () => window.open(alert.link, "_blank")
+            }))
             map.setView(v.location, 17);
         });
     }, [vehicles]);

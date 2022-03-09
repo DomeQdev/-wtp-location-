@@ -34,7 +34,6 @@ const Sheet = ({ vehicle, trip }) => {
                         </ListItemAvatar>
                         <ListItemText ref={(ref) => {
                             if (!scrolled && trip.stops.filter(st => whereBus(st) > -35)[0]?.id === stop.id) {
-                                console.log("s")
                                 ref?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                                 setScrolled(true);
                             }
