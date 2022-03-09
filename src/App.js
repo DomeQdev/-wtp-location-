@@ -11,7 +11,7 @@ const App = () => {
     const { customMapStyle, mapStyle, darkTheme } = JSON.parse(localStorage.getItem("settings") || "{}");
 
     return <>
-        <ThemeProvider theme={createTheme({palette: {mode: darkTheme ? "dark" : "light"}})}>
+        <ThemeProvider theme={createTheme({ palette: { mode: darkTheme ? "dark" : "light" } })}>
             <MapContainer
                 center={localStorage.bounds?.split(",") || [52.22983095298667, 21.0117354814593]}
                 zoom={localStorage.zoom || 16}
@@ -24,21 +24,21 @@ const App = () => {
                 <TileLayer url={MapStyle()} />
                 <ZoomControl position="topright" />
                 <Main />
-                <ToastContainer
-                    position="top-center"
-                    autoClose={7500}
-                    hideProgressBar={false}
-                    newestOnTop
-                    closeOnClick
-                    theme="dark"
-                    rtl={false}
-                    pauseOnFocusLoss={false}
-                    limit={5}
-                    draggable
-                    pauseOnHover={false}
-                />
             </MapContainer>
         </ThemeProvider>
+        <ToastContainer
+            position="top-center"
+            autoClose={7500}
+            hideProgressBar={false}
+            newestOnTop
+            closeOnClick
+            theme="dark"
+            rtl={false}
+            pauseOnFocusLoss={false}
+            limit={5}
+            draggable
+            pauseOnHover={false}
+        />
     </>;
 
     function MapStyle() {
@@ -53,11 +53,11 @@ const App = () => {
                 return "https://api.mapbox.com/styles/v1/domeq/ckzsc8506000215jqervcjkbk/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZG9tZXEiLCJhIjoiY2t6c2JlOWZ3MGx3cjJubW9zNDc5eGpwdiJ9.nUlvFKfUzpxBxJVc4zmAMA";
             case "mapboxnavigation":
                 return "https://api.mapbox.com/styles/v1/domeq/ckzsc8ra900qs14l84la2zfpk/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZG9tZXEiLCJhIjoiY2t6c2JlOWZ3MGx3cjJubW9zNDc5eGpwdiJ9.nUlvFKfUzpxBxJVc4zmAMA";
-            case "gmaps": 
+            case "gmaps":
                 return "https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
-            case "gsat": 
+            case "gsat":
                 return "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
-            case "gterrain": 
+            case "gterrain":
                 return "https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}"
             case "custom":
                 return customMapStyle;
