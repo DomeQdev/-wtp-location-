@@ -10,6 +10,7 @@ import "react-spring-bottom-sheet/dist/style.css"
 const Sheet = ({ vehicle, trip }) => {
     const navigate = useNavigate();
     const [scrolled, setScrolled] = useState(false);
+    const beforeStop = trip ? trip?.stops?.filter(stop => whereBus(stop) < -35).pop() : null;
 
     return (
         <BottomSheet
@@ -24,13 +25,14 @@ const Sheet = ({ vehicle, trip }) => {
             snapPoints={({ maxHeight }) => [maxHeight / 4, maxHeight * 0.6, maxHeight - 40]}
         >
             <List>
-                <div style={{ borderLeft: `4px solid ${trip?.color}`, marginLeft: '26px', marginTop: '14px', height: '95%', position: 'absolute', paddingRight: '16px' }} />
                 {trip ? trip.stops?.map((stop, i) => (
                     <ListItem button key={stop.name}>
                         <ListItemAvatar>
                             <Avatar sx={{ width: 24, height: 24, backgroundColor: trip?.color, color: "white", fontSize: "15px" }}>
                                 {i + 1}
                             </Avatar>
+                            {i + 1 !== trip.stops?.length ? <div style={{ borderLeft: `4px solid ${trip?.color}`, marginLeft: '10px', marginTop: '0px', height: '80%', position: 'absolute', paddingRight: '16px' }} /> : null}
+
                         </ListItemAvatar>
                         <ListItemText ref={(ref) => {
                             if (!scrolled && trip.stops.filter(st => whereBus(st) > -35)[0]?.id === stop.id) {
@@ -42,7 +44,7 @@ const Sheet = ({ vehicle, trip }) => {
                                 {stop.on_request ? <PanTool style={{ width: "15px", height: "15px" }} /> : null} {stop.name}
                             </div>
                             <div style={{ float: "right", textAlign: "right" }}>
-                                {whereBus(stop) > -35 ? <>chyba przyjedzie</> : null}
+                                {whereBus(stop) > -35 ? <>do {stop.minute - beforeStop.minute} minut</> : null}
                             </div>
                         </ListItemText>
                     </ListItem>

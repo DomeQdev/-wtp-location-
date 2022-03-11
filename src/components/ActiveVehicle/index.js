@@ -29,6 +29,7 @@ const ActiveVehicle = ({ vehicles }) => {
 
             res.trip.stops = res.trip.stops?.map(stop => {
                 stop.onLine = nearestPointOnLine(lineString(res.trip.shapes), point(stop.location), { units: 'meters' }).properties.location;
+                stop.minute = (stop.time - res.trip.stops[0].time) / 1000 / 60;
                 return stop;
             });
             setAPIResponse(res);
