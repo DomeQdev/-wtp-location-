@@ -44,7 +44,7 @@ const Sheet = ({ vehicle, trip }) => {
                                 {stop.on_request ? <PanTool style={{ width: "15px", height: "15px" }} /> : null} {stop.name}
                             </div>
                             <div style={{ float: "right", textAlign: "right" }}>
-                                {whereBus(stop) > -35 ? <>do {stop.minute - beforeStop.minute} minut</> : null}
+                                {whereBus(stop) > -35 ? <>do {stop?.minute - beforeStop?.minute} minut</> : null}
                             </div>
                         </ListItemText>
                     </ListItem>
