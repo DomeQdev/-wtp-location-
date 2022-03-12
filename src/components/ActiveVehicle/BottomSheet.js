@@ -10,7 +10,8 @@ import "react-spring-bottom-sheet/dist/style.css"
 const Sheet = ({ vehicle, trip }) => {
     const navigate = useNavigate();
     const [scrolled, setScrolled] = useState(false);
-    const beforeStop = trip ? (trip?.stops?.filter(stop => whereBus(stop) < -35)?.pop()?.minute || minutesUntilTimestamp(trip.stops[0].time)) : null;
+    const lastStop = trip ? trip?.stops?.filter(stop => whereBus(stop) < -35)?.pop() : null;
+    const beforeStop = trip ? lastStop?.minute || minutesUntilTimestamp(trip?.stops[0]?.time) : null;
 
     return (
         <BottomSheet
@@ -44,7 +45,7 @@ const Sheet = ({ vehicle, trip }) => {
                                 {stop.on_request ? <PanTool style={{ width: "15px", height: "15px" }} /> : null} {stop.name}
                             </div>
                             <div style={{ float: "right", textAlign: "right" }}>
-                                {whereBus(stop) > -35 ? <>za {Math.abs(stop?.minute - beforeStop)} min</> : null}
+                                {whereBus(stop) > -35 ? <>za {lastStop ? stop?.minute - beforeStop : stop?.minute + beforeStop} min</> : null}
                             </div>
                         </ListItemText>
                     </ListItem>
