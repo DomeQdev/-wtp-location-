@@ -16,7 +16,16 @@ const Main = () => {
         };
         wss.onmessage = ({ data }) => {
             let parsed = JSON.parse(data);
-            setVehicles(parsed);
+            setVehicles(parsed.map(x => ({
+                line: x.line,
+                type: x.type,
+                location: x.location,
+                deg: calcBearing(x.previous || [], x.location),
+                brigade: x.brigade,
+                tab: x.tab,
+                lastPing: x.timestamp,
+                trip: x.trip
+            })));
             if(!parsed.length) return toast.error(`Nie otrzymano informacji zwrotnej o położeniu pojazdów.`, { autoClose: 12500, closeOnClick: false, draggable: false });
         };
         wss.onclose = () => {
@@ -31,3 +40,8 @@ const Main = () => {
 };
 
 export default Main;
+
+function calcBearing(oldLocation, newLocation) {
+    let deg = Math.atan2(newLocation[1] - oldLocation[1], newLocation[0] - oldLocation[0]) * 180 / Math.PI;
+    return deg < 0 ? deg + 360 : deg;
+}
