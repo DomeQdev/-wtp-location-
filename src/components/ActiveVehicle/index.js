@@ -13,7 +13,7 @@ const ActiveVehicle = ({ vehicles }) => {
 
     const { tab, type } = useParams();
     const [activeVehicle, setActiveVehicle] = useState(null);
-    const [{ trip, vehicle, success, id }, setAPIResponse] = useState({});
+    const [{ trip, vehicle, id }, setAPIResponse] = useState({});
 
     useEffect(() => {
         if (!vehicles.length) return;

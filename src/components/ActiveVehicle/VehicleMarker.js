@@ -10,7 +10,7 @@ const VehicleMarker = ({ vehicle, trip, vehicleInfo }) => {
 
     const onLine = trip ? nearestPointOnLine(lineString(trip?.shapes), point(vehicle.location), { units: 'meters' }) : null;
 
-    const icon = vehicleInfo ? divIcon({
+    const icon = vehicleInfo || trip ? divIcon({
         className: '',
         html: renderToStaticMarkup(<span className={`vehicle-marker-active`}>{vehicle.type === "bus" ? <DirectionsBus style={{ height: "20px", width: "20px" }} /> : <Tram style={{ height: "20px", width: "20px" }} />}</span>),
         iconSize: [5, 5],

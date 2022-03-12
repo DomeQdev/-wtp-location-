@@ -3,7 +3,7 @@ import { Avatar, Divider, List, ListItem, ListItemAvatar, ListItemText } from "@
 import { PanTool, DirectionsBus, Tram } from '@mui/icons-material';
 import { lineString, point, nearestPointOnLine } from '@turf/turf';
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import "react-spring-bottom-sheet/dist/style.css"
 
@@ -12,6 +12,8 @@ const Sheet = ({ vehicle, trip }) => {
     const [scrolled, setScrolled] = useState(false);
     const lastStop = trip ? trip?.stops?.filter(stop => whereBus(stop) < -35)?.pop() : null;
     const beforeStop = trip ? lastStop?.minute || minutesUntilTimestamp(trip?.stops[0]?.time) : null;
+
+    useEffect(() => setScrolled(false), [ trip ]);
 
     return (
         <BottomSheet
