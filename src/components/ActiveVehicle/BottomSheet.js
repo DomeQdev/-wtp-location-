@@ -22,7 +22,7 @@ const Sheet = ({ vehicle, trip }) => {
                 zIndex: 30000,
                 position: "absolute",
             }}
-            header={<><div style={{ display: "inline-flex", alignItems: "center" }}>{vehicle?.type === "bus" ? <DirectionsBus style={{ height: "22px", width: "22px", fill: trip?.color }} /> : <Tram style={{ height: "22px", width: "22px", fill: trip?.color }} />} <b>{trip?.line}</b>&nbsp;» {trip?.headsign}</div><div onClick={() => navigate("/")} style={{ float: "right", textAlign: "right", cursor: "pointer" }}>x</div></>}
+            header={<><div style={{ display: "inline-flex", alignItems: "center" }}>{vehicle?.type === "bus" ? <DirectionsBus style={{ height: "22px", width: "22px", fill: trip?.color }} /> : <Tram style={{ height: "22px", width: "22px", fill: trip?.color }} />} <b>{vehicle?.line}</b>{trip?.headsign ? <>&nbsp;» {trip.headsign}</> : null}</div><div onClick={() => navigate("/")} style={{ float: "right", textAlign: "right", cursor: "pointer" }}>x</div></>}
             snapPoints={({ maxHeight }) => [maxHeight / 4, maxHeight * 0.6, maxHeight - 40]}
         >
             <List>
@@ -33,7 +33,6 @@ const Sheet = ({ vehicle, trip }) => {
                                 {i + 1}
                             </Avatar>
                             {i + 1 !== trip.stops?.length ? <div style={{ borderLeft: `4px solid ${trip?.color}`, marginLeft: '10px', marginTop: '0px', height: '80%', position: 'absolute', paddingRight: '16px' }} /> : null}
-
                         </ListItemAvatar>
                         <ListItemText ref={(ref) => {
                             if (!scrolled && trip.stops.filter(st => whereBus(st) > -35)[0]?.id === stop.id) {
@@ -49,7 +48,7 @@ const Sheet = ({ vehicle, trip }) => {
                             </div>
                         </ListItemText>
                     </ListItem>
-                )).reduce((prev, curr) => [prev, <Divider variant="inset" component="li" key={Math.random()} sx={{ backgroundColor: "#DCCDCD" }} />, curr]) : null}
+                )).reduce((prev, curr) => [prev, <Divider variant="inset" component="li" key={Math.random()} sx={{ backgroundColor: "#DCCDCD" }} />, curr]) : <h1 style={{ textAlign: "center" }}>Brak trasy</h1>}
             </List>
         </BottomSheet>
     );
@@ -64,5 +63,5 @@ export default Sheet;
 
 function minutesUntilTimestamp(timestamp) {
     let diff = new Date(timestamp) - new Date(Date.now() + 1 * 60 * 60 * 1000);
-    return Math.round(diff / 1000 / 60);
+    return Math.ceil(diff / 1000 / 60);
 }

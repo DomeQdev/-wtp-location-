@@ -24,21 +24,23 @@ const ActiveVehicle = ({ vehicles }) => {
             return navigate("/");
         };
         setActiveVehicle(v);
-        if (!success || id !== v.trip) fetch(`/tripInfo?trip=${v.trip}&vehicle=${type}${tab.split("+")[0]}`).then(res => res.json()).then(res => {
             if (!res.trip && !res.vehicle) return navigate("/");
 
-            res.trip.stops = res.trip.stops?.map(stop => {
-                stop.onLine = nearestPointOnLine(lineString(res.trip.shapes), point(stop.location), { units: 'meters' }).properties.location;
-                stop.minute = (stop.time - res.trip.stops[0].time) / 1000 / 60;
-                return stop;
-            });
+            if(res.trip) {
+                res.trip.stops = res.trip.stops?.map(stop => {
+                    stop.onLine = nearestPointOnLine(lineString(res.trip.shapes), point(stop.location), { units: 'meters' }).properties.location;
+                    stop.minute = (stop.time - res.trip.stops[0].time) / 1000 / 60;
+                    return stop;
+                });
+
+                res.trip.alerts.map(alert => toast.warn(`${alert.title} »`, { 
+                    onClick: () => window.open(alert.link, "_blank")
+                }));
+            }
             setAPIResponse(res);
 
-            res.trip.alerts.map(alert => toast.warn(`${alert.title} »`, { 
-                onClick: () => window.open(alert.link, "_blank")
-            }));
             map.setView(v.location, 17);
-        });
+        }).catch(() => navigate("/"));
     }, [vehicles]);
 
     return <>
