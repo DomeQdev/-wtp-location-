@@ -2,12 +2,15 @@ import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
 import { ToastContainer } from 'react-toastify';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { GlobalStyles } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { Settings, FilterList } from '@mui/icons-material';
 import Main from './components/Main';
 
 import "leaflet/dist/leaflet.css";
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
+    const navigate = useNavigate();
     const { customMapStyle, mapStyle, darkTheme } = JSON.parse(localStorage.getItem("settings") || "{}");
 
     return <>
@@ -35,6 +38,10 @@ const App = () => {
                 }} /> : null}
                 <TileLayer url={MapStyle()} />
                 <ZoomControl position="topright" />
+                <div class="leaflet-control-zoom leaflet-bar leaflet-control" style={{ top: 10, left: 10, position: "absolute" }}>
+                    <a href onClick={() => navigate("/filter")}><FilterList sx={{ fontSize: 19, marginTop: 0.75 }} /></a>
+                    <a href onClick={() => navigate("/settings")}><Settings sx={{ fontSize: 19, marginTop: 0.75 }} /></a>
+                </div>
                 <Main />
             </MapContainer>
         </ThemeProvider>

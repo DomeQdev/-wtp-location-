@@ -22,7 +22,7 @@ const Vehicles = ({ vehicles }) => {
             <Routes>
                 <Route path="/" element={<>
                     {filteredVehicles.filter(vehicle => bounds.contains(latLng(vehicle.location)) && (vehiclesInBounds < (maxVehicles || 120) || map.getZoom() > 15)).map(vehicle => (
-                        <VehicleMarker key={`${vehicle.type}${vehicle.tab }`} vehicle={vehicle} />
+                        <VehicleMarker key={`${vehicle.type}${vehicle.tab}`} vehicle={vehicle} />
                     ))}
                 </>} />
                 <Route path="/:type/:tab" element={<ActiveVehicle vehicles={vehicles} />} />
