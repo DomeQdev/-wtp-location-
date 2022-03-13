@@ -13,7 +13,7 @@ const Sheet = ({ vehicle, trip }) => {
     const lastStop = trip ? trip?.stops?.filter(stop => whereBus(stop) < -35)?.pop() : null;
     const beforeStop = trip ? lastStop?.minute || minutesUntilTimestamp(trip?.stops[0]?.time) : null;
 
-    useEffect(() => setScrolled(false), [ trip ]);
+    useEffect(() => setScrolled(false), [trip]);
 
     return (
         <BottomSheet
@@ -50,13 +50,13 @@ const Sheet = ({ vehicle, trip }) => {
                             </div>
                         </ListItemText>
                     </ListItem>
-                )).reduce((prev, curr) => [prev, <Divider variant="inset" component="li" key={Math.random()} sx={{ backgroundColor: "#DCCDCD" }} />, curr]) : <h1 style={{ textAlign: "center" }}>Brak trasy</h1>}
+                )).reduce((prev, curr) => [prev, <Divider variant="inset" component="li" key={Math.random()} sx={{ backgroundColor: "#DCCDCD", marginRight: "10px" }} />, curr]) : <h1 style={{ textAlign: "center" }}>Brak trasy</h1>}
             </List>
         </BottomSheet>
     );
 
     function whereBus(stop) {
-        if (!vehicle?.location) return 0;
+        if (!vehicle?.location || !trip) return 0;
         return stop.onLine - nearestPointOnLine(lineString(trip?.shapes), point(vehicle?.location), { units: 'meters' }).properties.location;
     }
 }
