@@ -26,6 +26,7 @@ const App = () => {
                     },
                     ":root": {
                         "--rsbs-backdrop-bg": "#1b1b1b",
+                        "--rsbs-handle-bg": "#fff",
                         "--rsbs-bg": "#1b1b1b"
                     },
                     "[data-rsbs-is-blocking='false'] [data-rsbs-overlay]": {
