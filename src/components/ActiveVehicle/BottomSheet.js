@@ -4,11 +4,13 @@ import { PanTool, DirectionsBus, Tram } from '@mui/icons-material';
 import { lineString, point, nearestPointOnLine } from '@turf/turf';
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useMap } from "react-leaflet";
 
 import "react-spring-bottom-sheet/dist/style.css"
 
 const Sheet = ({ vehicle, trip }) => {
     const navigate = useNavigate();
+    const map = useMap();
     const [scrolled, setScrolled] = useState(false);
     const lastStop = trip ? trip?.stops?.filter(stop => whereBus(stop) < -35)?.pop() : null;
     const beforeStop = trip ? lastStop?.minute || minutesUntilTimestamp(trip?.stops[0]?.time) : null;
@@ -29,7 +31,7 @@ const Sheet = ({ vehicle, trip }) => {
         >
             <List>
                 {trip ? trip.stops?.map((stop, i) => (
-                    <ListItem button key={stop.name}>
+                    <ListItem button key={stop.name} onClick={() => map.setView(stop.location, 17)}>
                         <ListItemAvatar>
                             <Avatar sx={{ width: 24, height: 24, backgroundColor: trip?.color, color: "white", fontSize: "15px" }}>
                                 {i + 1}
