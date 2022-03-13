@@ -11,13 +11,13 @@ const VehicleMarker = ({ vehicle, trip, vehicleInfo }) => {
     const onLine = trip ? nearestPointOnLine(lineString(trip?.shapes), point(vehicle.location), { units: 'meters' }) : null;
 
     const icon = vehicleInfo || trip ? divIcon({
-        className: '',
+        className: 'vehicle',
         html: renderToStaticMarkup(<span className={`vehicle-marker-active`}>{vehicle.type === "bus" ? <DirectionsBus style={{ height: "20px", width: "20px" }} /> : <Tram style={{ height: "20px", width: "20px" }} />}</span>),
         iconSize: [5, 5],
         iconAnchor: [15, 12],
         popupAnchor: [0, -12]
     }) : divIcon({
-        className: '',
+        className: 'vehicle',
         html: renderToStaticMarkup(<span className={`vehicle-marker ${vehicle.type}`}> {vehicle.deg ? <ArrowUpward style={{ transform: `rotate(${vehicle.deg}deg)`, height: "16px", width: "16px" }} /> : null}{vehicle.type === "bus" ? <DirectionsBus style={{ height: "16px", width: "16px" }} /> : <Tram style={{ height: "16px", width: "16px" }} />}&nbsp;<b className={"line-number"}>{vehicle.line}</b><small>/{vehicle.brigade}</small></span>),
         iconSize: [vehicle.line.includes("-") ? 95 : "auto", 28],
     })

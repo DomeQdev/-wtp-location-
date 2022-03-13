@@ -31,7 +31,7 @@ const Sheet = ({ vehicle, trip }) => {
         >
             <List>
                 {trip ? trip.stops?.map((stop, i) => (
-                    <ListItem button key={stop.name} onClick={() => map.setView(stop.location, 17)}>
+                    <ListItem button key={stop.name} onClick={() => map.flyTo(stop.location, 17)}>
                         <ListItemAvatar>
                             <Avatar sx={{ width: 24, height: 24, backgroundColor: trip?.color, color: "white", fontSize: "15px" }}>
                                 {i + 1}
