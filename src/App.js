@@ -20,7 +20,18 @@ const App = () => {
                 zoomControl={false}
                 style={{ width: "100%", height: "100vh" }}
             >
-                {darkTheme ? <GlobalStyles styles={{ ".leaflet-tile": { filter: "invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%)" } }} /> : null}
+                {darkTheme ? <GlobalStyles styles={{
+                    ".leaflet-tile": {
+                        filter: "invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%)"
+                    },
+                    ":root": {
+                        "--rsbs-backdrop-bg": "#1b1b1b",
+                        "--rsbs-bg": "#1b1b1b"
+                    },
+                    "[data-rsbs-is-blocking='false'] [data-rsbs-overlay]": {
+                        "color": "white"
+                    }
+                }} /> : null}
                 <TileLayer url={MapStyle()} />
                 <ZoomControl position="topright" />
                 <Main />
