@@ -13,7 +13,7 @@ const ActiveVehicle = ({ vehicles }) => {
 
     const { tab, type } = useParams();
     const [activeVehicle, setActiveVehicle] = useState(null);
-    const [{ trip, vehicle, id }, setAPIResponse] = useState({});
+    const [{ success, trip, vehicle, id }, setAPIResponse] = useState({});
 
     useEffect(() => {
         if (!vehicles.length) return;
@@ -24,7 +24,7 @@ const ActiveVehicle = ({ vehicles }) => {
             return navigate("/");
         };
         setActiveVehicle(v);
-        if (!vehicle || (v.trip && id !== v.trip)) fetch(`/tripInfo?trip=${v.trip}&vehicle=${type}${tab.split("+")[0]}`).then(res => res.json()).then(res => {
+        if (!success || (v.trip && id !== v.trip)) fetch(`/tripInfo?trip=${v.trip}&vehicle=${type}${tab.split("+")[0]}`).then(res => res.json()).then(res => {
             if (!res.trip && !res.vehicle) return navigate("/");
 
             if(res.trip) {
