@@ -52,6 +52,9 @@ const Settings = () => {
                                 label="Sortowanie po linii"
                                 inputProps={{
                                     ...params.inputProps,
+                                    form: {
+                                        autocomplete: 'off',
+                                    },
                                     autoComplete: 'select-lines',
                                 }}
                             />
