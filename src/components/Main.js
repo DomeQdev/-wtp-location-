@@ -20,7 +20,7 @@ const Main = () => {
                 line: x.line,
                 type: x.type,
                 location: x.location,
-                deg: calcBearing(x.previous || [], x.location),
+                deg: calcBearing(x.previous || [], x.location) || x.deg,
                 brigade: x.brigade,
                 tab: x.tab,
                 lastPing: x.timestamp,

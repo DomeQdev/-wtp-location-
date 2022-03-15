@@ -13,7 +13,7 @@ const Sheet = ({ vehicle, trip }) => {
     const map = useMap();
     const [scrolled, setScrolled] = useState(false);
     const lastStop = trip ? trip?.stops?.filter(stop => whereBus(stop) < -35)?.pop() : null;
-    const beforeStop = trip ? lastStop?.minute || minutesUntilTimestamp(trip?.stops[0]?.time) : null;
+    const beforeStop = trip ? lastStop?.minute || (vehicle?.type === "bus" || vehicle?.type === "tram" ? minutesUntilTimestamp(trip?.stops[0]?.time) : minutesUntil(trip?.stops[0]?.time)) : null;
 
     useEffect(() => setScrolled(false), [trip]);
 
@@ -67,5 +67,10 @@ export default Sheet;
 
 function minutesUntilTimestamp(timestamp) {
     let diff = new Date(timestamp) - new Date(Date.now() + 1 * 60 * 60 * 1000);
+    return Math.ceil(diff / 1000 / 60);
+}
+
+function minutesUntil(timestamp) {
+    let diff = new Date(timestamp) - new Date();
     return Math.ceil(diff / 1000 / 60);
 }
