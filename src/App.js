@@ -38,7 +38,7 @@ const App = () => {
                 }} /> : null}
                 <TileLayer url={MapStyle()} attribution="<a href='https://starb.in/2Ssx6m.less' target='_blank'>Attributions</a>" />
                 <ZoomControl position="topright" />
-                <div class="leaflet-control-zoom leaflet-bar leaflet-control" style={{ top: 10, left: 10, position: "absolute" }}>
+                <div className="leaflet-control-zoom leaflet-bar leaflet-control" style={{ top: 10, left: 10, position: "absolute" }}>
                     <a href onClick={() => navigate("/filter")}><FilterList sx={{ fontSize: 19, marginTop: 0.75 }} /></a>
                     <a href onClick={() => navigate("/settings")}><Settings sx={{ fontSize: 19, marginTop: 0.75 }} /></a>
                 </div>

@@ -7,9 +7,10 @@ const Settings = () => {
     const navigate = useNavigate();
 
     const local = JSON.parse(localStorage.getItem('filter') || "{}");
-    const [line, setLine] = useState(local?.line || []);
 
     const [data, setData] = useState({});
+
+    const [line, setLine] = useState(local?.line.map(l => data?.routes[l]) || []);
 
     useEffect(() => fetch("/filterData").then(res => res.json()).then(setData).catch(() => navigate("/")), []);
 
@@ -31,7 +32,7 @@ const Settings = () => {
                         multiple
                         fullWidth
                         options={Object.values(data?.routes || {})}
-                        value={line.map(l => data?.routes[l])}
+                        value={line}
                         onChange={(event, newValue) => setLine(newValue)}
                         autoHighlight
                         getOptionLabel={(option) => option[0]}
