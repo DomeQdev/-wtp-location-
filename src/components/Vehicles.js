@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import { useMapEvents, useMap } from 'react-leaflet';
 import VehicleMarker from './ActiveVehicle/VehicleMarker';
 import ActiveVehicle from './ActiveVehicle';
+import Filter from "./Filter";
 import Settings from './Settings';
 
 const Vehicles = ({ vehicles }) => {
@@ -26,6 +27,7 @@ const Vehicles = ({ vehicles }) => {
                     ))}
                 </>} />
                 <Route path="/:type/:tab" element={<ActiveVehicle vehicles={vehicles} />} />
+                <Route path="/filter" element={<Filter />} />
                 <Route path="/settings" element={<Settings />} />
             </Routes>
         </>
