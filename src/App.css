@@ -97,10 +97,6 @@ a {
     transition: transform .3s linear;
 }
 
-.leaflet-control-attribution {
-    display: none;
-}
-
 path {
     pointer-events: none!important;
 }

@@ -1,4 +1,4 @@
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, InputLabel, FormControl, TextField, MenuItem, Select } from '@mui/material';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, InputLabel, FormControl, TextField, MenuItem, Select, FormControlLabel, Switch } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
@@ -8,6 +8,8 @@ const Settings = () => {
     const settings = JSON.parse(localStorage.getItem("settings") || "{}");
     const [mapStyle, setMapStyle] = useState(settings.mapStyle || "osmdefault");
     const [customMapStyle, setCustomMapStyle] = useState(settings.customMapStyle || "");
+    const [maxVehicles, setMaxVehicles] = useState(settings.maxVehicles || 120);
+    const [darkTheme, setDarkTheme] = useState(settings.darkTheme || false);
 
     return <Dialog
         open={true}
@@ -39,17 +41,32 @@ const Settings = () => {
                         <MenuItem value="gterrain">Google Maps Terrain</MenuItem>
                         <MenuItem value="custom">Własna mapa (zaawansowane)</MenuItem>
                     </Select>
-                    {mapStyle === "custom" ? <><TextField
+                </FormControl>
+                {mapStyle === "custom" ? <FormControl fullWidth>
+                    <TextField
                         autoFocus
                         margin="dense"
                         label="Tile Layer URL"
                         placeholder='https://moja_mapa.org/{z}/{x}/{y}.png'
                         type="url"
-                        fullWidth
                         variant="standard"
                         value={customMapStyle}
                         onChange={({ target }) => setCustomMapStyle(target.value)}
-                    /><b>Jest to funkcja przeznaczona dla osób, które hostują własne mapy!</b><p>Link powinien zawierać {`{x}, {y} i {z}`} aby wszystko poprawnie działało. Link nie jest sprawdzany pod względem poprawności.</p></> : null}
+                    /><b>Jest to funkcja przeznaczona dla osób, które hostują własne mapy!</b><p>Link powinien zawierać {`{x}, {y} i {z}`} aby wszystko poprawnie działało. Link nie jest sprawdzany pod względem poprawności.</p>
+                </FormControl> : null}
+                <FormControl sx={{ float: "left" }}>
+                    <TextField
+                        margin="dense"
+                        label="Maksymalna liczba pojazdów"
+                        placeholder='Nie zalecamy >100'
+                        type="number"
+                        variant="standard"
+                        value={maxVehicles}
+                        onChange={({ target }) => setMaxVehicles(target.value)}
+                    />
+                </FormControl>
+                <FormControl sx={{ float: "right" }}>
+                    <FormControlLabel control={<Switch checked={darkTheme} onChange={() => setDarkTheme(!darkTheme)} />} label="Czarny motyw" />
                 </FormControl>
             </DialogContentText>
         </DialogContent>
@@ -60,6 +77,8 @@ const Settings = () => {
                 localStorage.setItem("settings", JSON.stringify({
                     mapStyle,
                     customMapStyle: mapStyle === "custom" ? customMapStyle : null,
+                    maxVehicles,
+                    darkTheme
                 }));
                 navigate("/");
                 window.location.reload();
