@@ -48,7 +48,7 @@ const Sheet = ({ vehicle, trip }) => {
                                 {stop.on_request ? <PanTool style={{ width: "15px", height: "15px" }} /> : null} {stop.name}
                             </div>
                             <div style={{ float: "right", textAlign: "right" }}>
-                                {whereBus(stop) > -35 ? <>za {lastStop ? stop?.minute - beforeStop : stop?.minute + beforeStop} min</> : null}
+                                {whereBus(stop) > -35 ? (vehicle?.type === "bus" || vehicle?.type === "tram" ? <>za {lastStop ? stop?.minute - beforeStop : stop?.minute + beforeStop} min</> : <>za {minutesUntil(stop?.time)}</>) : null}
                             </div>
                         </ListItemText>
                     </ListItem>
@@ -68,4 +68,11 @@ export default Sheet;
 function minutesUntilTimestamp(timestamp) {
     let diff = new Date(timestamp) - new Date(Date.now() + 1 * 60 * 60 * 1000);
     return Math.ceil(diff / 1000 / 60);
+}
+
+function minutesUntil(timestamp) {
+    let now = new Date();
+    let time = new Date(timestamp);
+    let diff = time - now;
+    return Math.floor(diff / 60000);
 }
