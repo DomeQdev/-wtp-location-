@@ -1,5 +1,6 @@
 export const onRequestGet = async() => {
     let data = await fetch("https://mkuran.pl/gtfs/warsaw/vehicles.json").then(res => res.json()).catch(() => null);
+    let skm = await fetch("https://new-api.domeqalt.repl.co/get/skmPredict").then(res => res.json()).catch(() => null);
     if (!data || !data.positions) return new Response("[]");
     return new Response(JSON.stringify(data.positions.map(x => {
         let trip = x.trip_id.split("/");
@@ -14,5 +15,5 @@ export const onRequestGet = async() => {
             lastPing: new Date(x.timestamp).getTime(),
             trip: trip.join("/")
         }
-    })));
+    }).concat(skm)));
 };
