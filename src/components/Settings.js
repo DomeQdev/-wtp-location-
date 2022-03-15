@@ -54,7 +54,7 @@ const Settings = () => {
                         onChange={({ target }) => setCustomMapStyle(target.value)}
                     /><b>Jest to funkcja przeznaczona dla osób, które hostują własne mapy!</b><p>Link powinien zawierać {`{x}, {y} i {z}`} aby wszystko poprawnie działało. Link nie jest sprawdzany pod względem poprawności.</p>
                 </FormControl> : null}
-                <FormControl sx={{ float: "left" }}>
+                <FormControl fullWidth>
                     <TextField
                         margin="dense"
                         label="Maksymalna liczba pojazdów"
@@ -65,7 +65,7 @@ const Settings = () => {
                         onChange={({ target }) => setMaxVehicles(target.value)}
                     />
                 </FormControl>
-                <FormControl sx={{ float: "right" }}>
+                <FormControl>
                     <FormControlLabel control={<Switch checked={darkTheme} onChange={() => setDarkTheme(!darkTheme)} />} label="Czarny motyw" />
                 </FormControl>
             </DialogContentText>
