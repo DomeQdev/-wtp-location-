@@ -28,7 +28,7 @@ async function getSKM() {
         location: skm.location,
         deg: 0,
         previous: skm.previousLocation,
-        brigade: "0",
+        brigade: null,
         tab: skm.trip.replace(/\//g, "."),
         lastPing: Date.now(),
         trip: skm.trip
