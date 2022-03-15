@@ -35,6 +35,7 @@ const Settings = () => {
                     {data?.routes ? <Autocomplete
                         multiple
                         fullWidth
+                        disableCloseOnSelect
                         options={Object.values(data?.routes)}
                         value={line}
                         onChange={(event, newValue) => setLine(newValue)}
