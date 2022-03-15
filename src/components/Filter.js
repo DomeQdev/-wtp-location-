@@ -31,7 +31,7 @@ const Settings = () => {
                         multiple
                         fullWidth
                         options={Object.values(data?.routes || {})}
-                        value={line}
+                        value={line.map(l => data?.routes[l])}
                         onChange={(event, newValue) => setLine(newValue)}
                         autoHighlight
                         getOptionLabel={(option) => option[0]}
