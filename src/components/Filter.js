@@ -8,11 +8,15 @@ const Settings = () => {
 
     const local = JSON.parse(localStorage.getItem('filter') || "{}");
 
-    const [data, setData] = useState({});
+    const [data, setData] = useState({
+        routes: []
+    });
 
-    const [line, setLine] = useState(local?.line.map(l => data?.routes[l]) || []);
+    const [line, setLine] = useState(local?.line || []);
 
+    // https://static.higenku.org/https://beta.freewifi.waw.pl/filterData
     useEffect(() => fetch("/filterData").then(res => res.json()).then(setData).catch(() => navigate("/")), []);
+    useEffect(() => setLine(local?.line ? local.line.map(l => data?.routes[l]) : []), [data]);
 
     return <Dialog
         open={true}
@@ -28,14 +32,14 @@ const Settings = () => {
         <DialogContent dividers={true}>
             <DialogContentText tabIndex={-1} component={"div"}>
                 <FormControl fullWidth>
-                    <Autocomplete
+                    {data?.routes ? <Autocomplete
                         multiple
                         fullWidth
-                        options={Object.values(data?.routes || {})}
+                        options={Object.values(data?.routes)}
                         value={line}
                         onChange={(event, newValue) => setLine(newValue)}
                         autoHighlight
-                        getOptionLabel={(option) => option[0]}
+                        getOptionLabel={(option) => option ? option[0] : null}
                         renderOption={(props, option) => (
                             <Box component="li" {...props}>
                                 {option[2] === "bus" ? <DirectionsBus style={{ fill: `#${option[3]}` }} /> : (option[2] === "tram" ? <Tram style={{ fill: `#${option[3]}` }} /> : <Train style={{ fill: `#${option[3]}` }} />)} {option[0]} {option[1]}
@@ -51,7 +55,7 @@ const Settings = () => {
                                 }}
                             />
                         )}
-                    />
+                    /> : null}
                 </FormControl>
             </DialogContentText>
         </DialogContent>
