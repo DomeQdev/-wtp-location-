@@ -11,11 +11,11 @@ import "react-spring-bottom-sheet/dist/style.css"
 const Sheet = ({ vehicle, trip }) => {
     const navigate = useNavigate();
     const map = useMap();
-    //const [scrolled, setScrolled] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const lastStop = trip ? trip?.stops?.filter(stop => whereBus(stop) < -35)?.pop() : null;
     const beforeStop = trip ? lastStop?.minute || minutesUntilTimestamp(trip?.stops[0]?.time) : null;
 
-    //useEffect(() => setScrolled(false), [trip]);
+    useEffect(() => setScrolled(false), [trip]);
 
     return (
         <BottomSheet
@@ -30,9 +30,13 @@ const Sheet = ({ vehicle, trip }) => {
             snapPoints={({ maxHeight }) => [maxHeight / 4, maxHeight * 0.6, maxHeight - 40]}
         >
             <List>
-                <p>Tymczasowo wyłączyłem auto scroll do najbliższego przystanku</p>
                 {trip ? trip.stops?.map((stop, i) => (
-                    <ListItem button key={stop.name} onClick={() => map.flyTo(stop.location, 17)}>
+                    <ListItem button key={stop.name} onClick={() => map.flyTo(stop.location, 17)} ref={(ref) => {
+                        if (!scrolled && trip.stops.filter(st => whereBus(st) > -35)[0]?.id === stop.id) {
+                            ref?.scrollIntoView();
+                            setScrolled(true);
+                        }
+                    }}>
                         <ListItemAvatar>
                             <Avatar sx={{ width: 24, height: 24, backgroundColor: trip?.color, color: "white", fontSize: "15px" }}>
                                 {i + 1}
