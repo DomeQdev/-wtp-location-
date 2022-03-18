@@ -2,7 +2,7 @@ import { Marker, Popup } from 'react-leaflet';
 import { divIcon } from 'leaflet';
 import { useNavigate } from "react-router-dom";
 import { renderToStaticMarkup } from 'react-dom/server';
-import { ArrowUpward, DirectionsBus, Tram } from '@mui/icons-material';
+import { ArrowUpward, DirectionsBus, Tram, DirectionsTransit } from '@mui/icons-material';
 import { nearestPointOnLine, lineString, point } from '@turf/turf';
 
 const VehicleMarker = ({ vehicle, trip, vehicleInfo }) => {
@@ -12,13 +12,13 @@ const VehicleMarker = ({ vehicle, trip, vehicleInfo }) => {
 
     const icon = vehicleInfo || trip ? divIcon({
         className: 'vehicle',
-        html: renderToStaticMarkup(<span className={`vehicle-marker-active`}>{vehicle.type === "bus" ? <DirectionsBus style={{ height: "20px", width: "20px" }} /> : <Tram style={{ height: "20px", width: "20px" }} />}</span>),
+        html: renderToStaticMarkup(<span className={`vehicle-marker-active`}>{getIcon(vehicle?.type)}</span>),
         iconSize: [5, 5],
         iconAnchor: [15, 12],
         popupAnchor: [0, -12]
     }) : divIcon({
         className: 'vehicle',
-        html: renderToStaticMarkup(<span className={`vehicle-marker ${vehicle.type}`}> {vehicle.deg ? <ArrowUpward style={{ transform: `rotate(${vehicle.deg}deg)`, height: "16px", width: "16px" }} /> : null}{vehicle.type === "bus" ? <DirectionsBus style={{ height: "16px", width: "16px" }} /> : <Tram style={{ height: "16px", width: "16px" }} />}&nbsp;<b className={"line-number"}>{vehicle.line}</b>{vehicle?.brigade ? <small>/{vehicle.brigade}</small> : null}</span>),
+        html: renderToStaticMarkup(<span className={`vehicle-marker ${vehicle.type}`}> {vehicle.deg ? <ArrowUpward style={{ transform: `rotate(${vehicle.deg}deg)`, height: "16px", width: "16px" }} /> : null}{getIcon(vehicle?.type)}&nbsp;<b className={"line-number"}>{vehicle.line}</b>{vehicle?.brigade ? <small>/{vehicle.brigade}</small> : null}</span>),
         iconSize: [vehicle.line.includes("-") ? 95 : "auto", 28],
     })
 
@@ -41,5 +41,16 @@ const VehicleMarker = ({ vehicle, trip, vehicleInfo }) => {
         </Popup> : null}    
     </Marker>;
 };
+
+function getIcon(type) {
+    switch(type) {
+        case "bus":
+            return <DirectionsBus style={{ height: "20px", width: "20px" }} />;
+        case "tram":
+            return <Tram style={{ height: "20px", width: "20px" }} />;
+        default:
+            return <DirectionsTransit style={{ height: "20px", width: "20px" }} />;
+    }
+}
 
 export default VehicleMarker;

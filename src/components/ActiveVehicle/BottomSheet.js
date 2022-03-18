@@ -1,6 +1,6 @@
 import { BottomSheet } from "react-spring-bottom-sheet";
 import { Avatar, Divider, List, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
-import { PanTool, DirectionsBus, Tram } from '@mui/icons-material';
+import { PanTool, DirectionsBus, Tram, DirectionsTransit } from '@mui/icons-material';
 import { lineString, point, nearestPointOnLine } from '@turf/turf';
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -26,7 +26,7 @@ const Sheet = ({ vehicle, trip }) => {
                 zIndex: 30000,
                 position: "absolute",
             }}
-            header={<><div style={{ display: "inline-flex", alignItems: "center" }}>{vehicle?.type === "bus" ? <DirectionsBus style={{ height: "22px", width: "22px", fill: trip?.color }} /> : <Tram style={{ height: "22px", width: "22px", fill: trip?.color }} />} <b>{vehicle?.line}</b>{trip?.headsign ? <>&nbsp;» {trip.headsign}</> : null}</div><div onClick={() => navigate("/")} style={{ float: "right", textAlign: "right", cursor: "pointer" }}>x</div></>}
+            header={<><div style={{ display: "inline-flex", alignItems: "center" }}>{getIcon(vehicle?.type, trip?.color)} <b>{vehicle?.line}</b>{trip?.headsign ? <>&nbsp;» {trip.headsign}</> : null}</div><div onClick={() => navigate("/")} style={{ float: "right", textAlign: "right", cursor: "pointer" }}>x</div></>}
             snapPoints={({ maxHeight }) => [maxHeight / 4, maxHeight * 0.6, maxHeight - 40]}
         >
             <List>
@@ -68,4 +68,15 @@ export default Sheet;
 function minutesUntilTimestamp(timestamp) {
     let diff = new Date(timestamp) - new Date(Date.now() + 1 * 60 * 60 * 1000);
     return Math.ceil(diff / 1000 / 60);
+}
+
+function getIcon(type, color) {
+    switch(type) {
+        case "bus":
+            return <DirectionsBus style={{ height: "20px", width: "20px", fill: color }} />;
+        case "tram":
+            return <Tram style={{ height: "20px", width: "20px", fill: color }} />;
+        default:
+            return <DirectionsTransit style={{ height: "20px", width: "20px", fill: color }} />;
+    }
 }
