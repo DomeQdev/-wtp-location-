@@ -17,7 +17,7 @@ const Settings = () => {
     // https://static.higenku.org/https://beta.freewifi.waw.pl/filterData
     useEffect(() => {
         let filter = JSON.parse(localStorage.getItem("filterData") || "{}");
-        if(filter) return setData(filter);
+        if(filter?.routes) return setData(filter);
         if(!filter || (Date.now() - filter?.timestamp || 0) < 86400000) fetch("/filterData").then(res => res.json()).then(data => {
             setData(data);
             localStorage.setItem("filterData", JSON.stringify({
