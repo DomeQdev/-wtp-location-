@@ -65,27 +65,13 @@ a {
     color:#007bff!important;
     border:2px solid #007bff!important;
 }
-
 .skm {
-    color:#149799!important;
-    border:2px solid #149799!important;
+    color:#009955!important;
+    border:2px solid #009955!important;
 }
-
-
-.bg-bus {
-    background-color:#006b47!important;
-    color: #fff!important;
-}
-.bg-tram {
-    background-color:#007bff!important;
-    color: #fff!important;
-}
-
-.fill-bus {
-    fill:#006b47!important;
-}
-.fill-tram {
-    fill:#007bff!important;
+.km {
+    color:#008800!important;
+    border:2px solid #008800!important;
 }
 
 .leaflet-marker-icon.vehicle {
