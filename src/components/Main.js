@@ -16,6 +16,7 @@ const Main = () => {
         };
         wss.onmessage = ({ data }) => {
             let parsed = JSON.parse(data);
+            if(!parsed.length) return;
             setVehicles(parsed.map(x => ({
                 line: x.line,
                 type: x.type,
@@ -26,12 +27,8 @@ const Main = () => {
                 lastPing: x.timestamp,
                 trip: x.trip
             })));
-            if(!parsed.length) return toast.error(`Nie otrzymano informacji zwrotnej o położeniu pojazdów.`, { autoClose: 12500, closeOnClick: false, draggable: false });
         };
-        wss.onclose = () => {
-            toast.error("Stracono połączenie z serwerem.")
-            setConnected(false);
-        };
+        wss.onclose = () => setConnected(false);
     }, [ connected ]);
 
     useEffect(() => fetch('/loadVehicles').then(res => res.json()).then(setVehicles), []);
