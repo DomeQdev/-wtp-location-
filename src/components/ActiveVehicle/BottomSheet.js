@@ -11,11 +11,11 @@ import "react-spring-bottom-sheet/dist/style.css"
 const Sheet = ({ vehicle, trip }) => {
     const navigate = useNavigate();
     const map = useMap();
-    const [scrolled, setScrolled] = useState(false);
+    //const [scrolled, setScrolled] = useState(false);
     const lastStop = trip ? trip?.stops?.filter(stop => whereBus(stop) < -35)?.pop() : null;
     const beforeStop = trip ? lastStop?.minute || minutesUntilTimestamp(trip?.stops[0]?.time) : null;
 
-    useEffect(() => setScrolled(false), [trip]);
+    //useEffect(() => setScrolled(false), [trip]);
 
     return (
         <BottomSheet
