@@ -30,6 +30,7 @@ const Sheet = ({ vehicle, trip }) => {
             snapPoints={({ maxHeight }) => [maxHeight / 4, maxHeight * 0.6, maxHeight - 40]}
         >
             <List>
+                <p>Tymczasowo wyłączyłem auto scroll do najbliższego przystanku</p>
                 {trip ? trip.stops?.map((stop, i) => (
                     <ListItem button key={stop.name} onClick={() => map.flyTo(stop.location, 17)}>
                         <ListItemAvatar>
@@ -38,12 +39,7 @@ const Sheet = ({ vehicle, trip }) => {
                             </Avatar>
                             {i + 1 !== trip.stops?.length ? <div style={{ borderLeft: `4px solid ${trip?.color}`, marginLeft: '10px', marginTop: '0px', height: '80%', position: 'absolute', paddingRight: '16px' }} /> : null}
                         </ListItemAvatar>
-                        <ListItemText ref={(ref) => {
-                            if (!scrolled && trip.stops.filter(st => whereBus(st) > -35)[0]?.id === stop.id) {
-                                ref?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                setScrolled(true);
-                            }
-                        }}>
+                        <ListItemText>
                             <div style={{ float: "left", textAlign: "left", color: whereBus(stop) < -35 ? "#ADADAD" : null }}>
                                 {stop.on_request ? <PanTool style={{ width: "15px", height: "15px" }} /> : null} {stop.name}
                             </div>

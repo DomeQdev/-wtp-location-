@@ -24,7 +24,6 @@ const ActiveVehicle = ({ vehicles }) => {
             return navigate("/");
         };
         setActiveVehicle(v);
-        if (!success || (v.trip && id !== v.trip)) fetch(`/tripInfo?trip=${v.trip}&vehicle=${type}${tab.split("+")[0]}`).then(res => res.json()).then(res => {
             if (!res.trip && !res.vehicle) return navigate("/");
 
             if(res.trip) {
@@ -46,7 +45,7 @@ const ActiveVehicle = ({ vehicles }) => {
 
     return <>
         {activeVehicle ? <VehicleMarker vehicle={activeVehicle} trip={trip} vehicleInfo={vehicle} /> : null}
-        {trip ? <Polyline positions={trip?.shapes} pathOptions={{ color: trip.color, weight: 7 }} /> : null}
+        {trip ? <Polyline positions={trip?.shapes} pathOptions={{ color: trip.color, weight: 8 }} /> : null}
         {trip ? trip?.stops.map(stop => <StopMarker stop={stop} trip={trip} key={stop.name} />) : null}
         <BottomSheet vehicle={activeVehicle} trip={trip} />
     </>;
