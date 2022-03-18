@@ -39,8 +39,6 @@ const ActiveVehicle = ({ vehicles }) => {
                 }));
             }
             setAPIResponse(res);
-
-            map.setView(v.location, 17);
         }).catch(() => navigate("/"));
     }, [vehicles]);
 
