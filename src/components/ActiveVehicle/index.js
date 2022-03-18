@@ -24,6 +24,9 @@ const ActiveVehicle = ({ vehicles }) => {
             return navigate("/");
         };
         setActiveVehicle(v);
+
+        if(!success) map.setView(v.location, 17);
+
         if (!success || (v.trip && id !== v.trip)) fetch(`/tripInfo?trip=${v.trip}&vehicle=${type}${tab.split("+")[0]}`).then(res => res.json()).then(res => {
             if (!res.trip && !res.vehicle) return navigate("/");
 
