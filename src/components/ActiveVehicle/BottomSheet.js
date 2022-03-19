@@ -31,7 +31,7 @@ const Sheet = ({ vehicle, trip }) => {
         >
             <List>
                 {trip ? trip.stops?.map((stop, i) => (
-                    <ListItem button key={stop.name} onClick={() => map.flyTo(stop.location, 17)} ref={(ref) => {
+                    <ListItem button key={stop.name} onClick={() => map.setView(stop.location, 17)} ref={(ref) => {
                         if (!scrolled && trip.stops.filter(st => whereBus(st) > -35)[0]?.id === stop.id) {
                             ref?.scrollIntoView();
                             setScrolled(true);
