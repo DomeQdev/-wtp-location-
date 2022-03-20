@@ -1,7 +1,7 @@
 {
-  "short_name": "Lokalizacja WTP",
-  "name": "Lokalizacja WTP",
-  "description": "Lokalizacja pojazdów Warszawskiego Transportu Publicznego",
+  "short_name": "Lokalizacja pojazdów komunikacji miejskiej",
+  "name": "Lokalizacja pojazdów komunikacji miejskiej",
+  "description": "Jedna z najlepszych stron do lokalizowania pojazdów komunikacji miejskiej w Warszawie i Gdańsku!",
   "categories": [
     "navigation",
     "travel",
@@ -76,8 +76,8 @@
   ],
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#fb0101",
-  "background_color": "#E64E4E",
+  "theme_color": "#FFFFFF",
+  "background_color": "#FFFFFF",
   "orientation": "portrait",
   "gcm_sender_id": "477862441151"
 }
