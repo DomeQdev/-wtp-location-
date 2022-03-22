@@ -38,10 +38,8 @@ const Sheet = ({ vehicle, trip }) => {
                         }
                     }}>
                         <ListItemAvatar>
-                            <Avatar sx={{ width: 24, height: 24, backgroundColor: trip?.color, color: "white", fontSize: "15px" }}>
-                                {i + 1}
-                            </Avatar>
-                            {i + 1 !== trip.stops?.length ? <div style={{ borderLeft: `4px solid ${trip?.color}`, marginLeft: '10px', marginTop: '0px', height: '80%', position: 'absolute', paddingRight: '16px' }} /> : null}
+                            <Avatar sx={{ width: 15, height: 15, backgroundColor: whereBus(stop) > -35 ? trip?.color : "#9ba1ab", color: "white", marginLeft: "5px" }}>&nbsp;</Avatar>
+                            {i + 1 !== trip.stops?.length ? <div style={{ borderLeft: `7px solid ${whereBus(stop) > -35 ? trip?.color : "#9ba1ab"}`, marginLeft: '9px', marginTop: '-1px', height: '100%', position: 'absolute', paddingRight: '16px' }} /> : null}
                         </ListItemAvatar>
                         <ListItemText>
                             <div style={{ float: "left", textAlign: "left", color: whereBus(stop) < -35 ? "#ADADAD" : null }}>

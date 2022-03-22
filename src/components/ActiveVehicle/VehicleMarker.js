@@ -37,7 +37,9 @@ const VehicleMarker = ({ vehicle, trip, vehicleInfo }) => {
             {vehicleInfo?.description ? <b>{vehicleInfo.description}<br /></b> : null}
             {vehicleInfo?.prodYear ? <><b>Rok produkcji:</b> {vehicleInfo.prodYear}<br /></> : null}
             {vehicleInfo?.registration ? <><b>Rejestracja:</b> {vehicleInfo?.registration}<br /></> : null}
-            {vehicleInfo?.depot ? <><b>Zajezdnia:</b> {vehicleInfo?.depot}</> : null}
+            {vehicleInfo?.depot ? <><b>Zajezdnia:</b> {vehicleInfo?.depot}<br /></> : null}
+            {vehicleInfo?.carrier ? <><b>Przewoźnik</b>: {vehicleInfo?.carrier}<br /></> : null}
+            {vehicleInfo?.features.join(", ")}
         </Popup> : null}    
     </Marker>;
 };
