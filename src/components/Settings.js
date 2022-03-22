@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 const Settings = () => {
     const navigate = useNavigate();
     const settings = JSON.parse(localStorage.getItem("settings") || "{}");
-    const [mapStyle, setMapStyle] = useState(settings.mapStyle || "osmdefault");
+    const [mapStyle, setMapStyle] = useState(settings.mapStyle || "gmaps");
     const [customMapStyle, setCustomMapStyle] = useState(settings.customMapStyle || "");
     const [maxVehicles, setMaxVehicles] = useState(settings.maxVehicles || 120);
     const [darkTheme, setDarkTheme] = useState(settings.darkTheme || false);
@@ -31,14 +31,14 @@ const Settings = () => {
                         label="Styl mapy"
                         onChange={({ target }) => setMapStyle(target.value)}
                     >
+                        <MenuItem value="gmaps">Google Maps</MenuItem>
+                        <MenuItem value="gsat">Google Maps Satellite</MenuItem>
+                        <MenuItem value="gterrain">Google Maps Terrain</MenuItem>
                         <MenuItem value="osmdefault">OSM Default</MenuItem>
                         <MenuItem value="mapboxbasic">Mapbox Basic</MenuItem>
                         <MenuItem value="mapboxstreets">Mapbox Streets</MenuItem>
                         <MenuItem value="mapboxsatellite">Mapbox Satellite</MenuItem>
                         <MenuItem value="mapboxnavigation">Mapbox Navigation</MenuItem>
-                        <MenuItem value="gmaps">Google Maps</MenuItem>
-                        <MenuItem value="gsat">Google Maps Satellite</MenuItem>
-                        <MenuItem value="gterrain">Google Maps Terrain</MenuItem>
                         <MenuItem value="custom">Własna mapa (zaawansowane)</MenuItem>
                     </Select>
                 </FormControl>

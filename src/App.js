@@ -62,6 +62,8 @@ const App = () => {
 
     function MapStyle() {
         switch (mapStyle) {
+            case "osmdefault": 
+                return "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
             case "mapboxbasic":
                 return "https://api.mapbox.com/styles/v1/domeq/ckzsbx3mn001s14pape9nn2qq/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZG9tZXEiLCJhIjoiY2t6c2JlOWZ3MGx3cjJubW9zNDc5eGpwdiJ9.nUlvFKfUzpxBxJVc4zmAMA";
             case "mapboxstreets":
@@ -71,15 +73,15 @@ const App = () => {
             case "mapboxnavigation":
                 return "https://api.mapbox.com/styles/v1/domeq/ckzsc8ra900qs14l84la2zfpk/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZG9tZXEiLCJhIjoiY2t6c2JlOWZ3MGx3cjJubW9zNDc5eGpwdiJ9.nUlvFKfUzpxBxJVc4zmAMA";
             case "gmaps":
-                return "https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
+                return "https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}";
             case "gsat":
-                return "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
+                return "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}";
             case "gterrain":
-                return "https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}"
+                return "https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}";
             case "custom":
                 return customMapStyle;
             default:
-                return "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+                return "https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}";
         };
     };
 };
