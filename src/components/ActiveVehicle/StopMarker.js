@@ -1,13 +1,11 @@
 import { Marker, Popup } from 'react-leaflet';
 import { divIcon } from 'leaflet';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { nearestPointOnLine, lineString, point } from '@turf/turf';
 
 export default function StopMarker({ stop, trip }) {
-    const { properties, geometry } = nearest(stop.location);
     return (
         <Marker
-            position={properties?.dist < 50 ? geometry?.coordinates : stop.location}
+            position={stop.location}
             eventHandlers={{
                 click: () => {}
             }}
@@ -23,9 +21,4 @@ export default function StopMarker({ stop, trip }) {
             <Popup autoPan={false}><b>{stop.name}</b></Popup>
         </Marker>
     );
-
-    function nearest(location) {
-        if (typeof location !== "object" || !trip) return null;
-        return nearestPointOnLine(lineString(trip?.shapes), point(location), { units: 'meters' });
-    }
 }

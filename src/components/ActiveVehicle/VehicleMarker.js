@@ -8,7 +8,7 @@ import { nearestPointOnLine, lineString, point } from '@turf/turf';
 const VehicleMarker = ({ vehicle, trip, vehicleInfo }) => {
     const navigate = useNavigate();
 
-    const onLine = trip ? nearestPointOnLine(lineString(trip?.shapes), point(vehicle.location), { units: 'meters' }) : null;
+    const onLine = null;
 
     const icon = vehicleInfo || trip ? divIcon({
         className: 'vehicle',
