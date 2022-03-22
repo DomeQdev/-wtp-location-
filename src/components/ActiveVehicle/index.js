@@ -32,9 +32,7 @@ const ActiveVehicle = ({ vehicles }) => {
 
             if (res.trip) {
                 res.trip.stops = res.trip.stops?.map(stop => {
-                    let nearest = nearestPointOnLine(lineString(res.trip.shapes), point(stop.location), { units: 'meters' })
-                    stop.onLine = nearest?.properties?.location;
-                    stop.location = nearest?.properties?.dist < 50 ? nearest?.geometry?.coordinates : stop.location
+                    
                     stop.minute = (stop.time - res.trip.stops[0].time) / 1000 / 60;
                     return stop;
                 });
@@ -44,7 +42,7 @@ const ActiveVehicle = ({ vehicles }) => {
                 }));
             }
             setAPIResponse(res);
-        }).catch(() => navigate("/"));
+        });
     }, [vehicles]);
 
     return <>
