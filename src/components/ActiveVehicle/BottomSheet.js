@@ -26,7 +26,11 @@ const Sheet = ({ vehicle, trip }) => {
                 zIndex: 30000,
                 position: "absolute",
             }}
-            header={<><div style={{ display: "inline-flex", alignItems: "center" }}>{getIcon(vehicle?.type, trip?.color)} <b>{vehicle?.line}</b>{trip?.headsign ? <>&nbsp;» {trip.headsign}</> : null}</div><div onClick={() => navigate("/")} style={{ float: "right", textAlign: "right", cursor: "pointer" }}>x</div></>}
+            header={<>
+                <div style={{ display: "inline-flex", alignItems: "center" }}>
+                    <b style={{ color: "white", backgroundColor: trip?.color, borderRadius: "25px", padding: "5px", paddingLeft: "10px", paddingRight: "10px", display: "inline-flex", alignItems: "center" }}>{getIcon(vehicle?.type, "#fff")}&nbsp;{vehicle?.line}</b>{trip?.headsign ? <>&nbsp;{trip.headsign}</> : null}
+                </div>
+            </>}
             snapPoints={({ maxHeight }) => [maxHeight / 4, maxHeight * 0.6, maxHeight - 40]}
         >
             <List>
