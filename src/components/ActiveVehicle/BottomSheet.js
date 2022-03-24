@@ -26,11 +26,11 @@ const Sheet = ({ vehicle, trip }) => {
                 zIndex: 30000,
                 position: "absolute",
             }}
-            header={<>
+            header={vehicle ? <>
                 <div style={{ display: "inline-flex", alignItems: "center" }}>
-                    <b style={{ color: "white", backgroundColor: trip?.color, borderRadius: "25px", padding: "5px", paddingLeft: "10px", paddingRight: "10px", display: "inline-flex", alignItems: "center" }}>{getIcon(vehicle?.type, "#fff")}&nbsp;{vehicle?.line}</b>{trip?.headsign ? <>&nbsp;{trip.headsign}</> : null}
+                    <b style={{ color: "white", backgroundColor: trip?.color || "#880077", borderRadius: "25px", padding: "5px", paddingLeft: "10px", paddingRight: "10px", display: "inline-flex", alignItems: "center" }}>{getIcon(vehicle?.type, "#fff")}&nbsp;{vehicle?.line}</b>{trip?.headsign ? <>&nbsp;{trip.headsign}</> : null}
                 </div>
-            </>}
+            </> : null}
             snapPoints={({ maxHeight }) => [maxHeight / 4, maxHeight * 0.6, maxHeight - 40]}
         >
             <List>
@@ -50,7 +50,7 @@ const Sheet = ({ vehicle, trip }) => {
                                 {stop.on_request ? <PanTool style={{ width: "15px", height: "15px" }} /> : null} {stop.name}
                             </div>
                             <div style={{ float: "right", textAlign: "right" }}>
-                                {(vehicle?.type === "bus" || vehicle?.type === "tram") && whereBus(stop) > -35 ? <>za {lastStop ? stop?.minute - beforeStop : stop?.minute + beforeStop} min</> : null}
+                                {(vehicle?.type === "bus" || vehicle?.type === "tram") && whereBus(stop) > -35 ? <>za {!lastStop ? stop?.minute + beforeStop : stop?.minute - beforeStop} min</> : null}
                             </div>
                         </ListItemText>
                     </ListItem>
