@@ -22,10 +22,7 @@ const Sheet = ({ vehicle, trip }) => {
             open={true}
             onDismiss={() => navigate("/")}
             blocking={false}
-            style={{
-                zIndex: 30000,
-                position: "absolute",
-            }}
+            style={{ zIndex: 30000, position: "absolute" }}
             header={vehicle ? <>
                 <div style={{ display: "inline-flex", alignItems: "center" }}>
                     <b style={{ color: "white", backgroundColor: trip?.color || "#880077", borderRadius: "25px", padding: "5px", paddingLeft: "10px", paddingRight: "10px", display: "inline-flex", alignItems: "center" }}>{getIcon(vehicle?.type, "#fff")}&nbsp;{vehicle?.line}</b>{trip?.headsign ? <>&nbsp;{trip.headsign}</> : null}
