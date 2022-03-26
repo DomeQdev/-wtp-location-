@@ -18,6 +18,6 @@ export const onRequestGet = async () => {
     })));
 };
 
-Number.prototype.zeroPad = function() {
-    return ('0'+this).slice(-2);
+Number.prototype.zeroPad = function () {
+    return ('0' + this).slice(-2);
 };

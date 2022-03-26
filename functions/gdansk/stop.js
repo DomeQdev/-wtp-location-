@@ -1,10 +1,10 @@
 export const onRequestGet = async ({ request }) => {
     let url = new URL(request.url);
     let id = url.searchParams.get('id');
-    if(!id) return new Response("{error:true}", { status: 400 });
+    if (!id) return new Response("{error:true}", { status: 400 });
 
     let response = await fetch(`https://ckan2.multimediagdansk.pl/departures?stopId=${id}`).then(res => res.json()).catch(() => null);
-    if(!response) return new Response("{error:true}", { status: 500 });
+    if (!response) return new Response("{error:true}", { status: 500 });
 
     return new Response(JSON.stringify(response.departures.map(departure => {
         let start = new Date(departure.scheduledTripStartTime);
@@ -22,6 +22,6 @@ export const onRequestGet = async ({ request }) => {
     })));
 };
 
-Number.prototype.zeroPad = function() {
-    return ('0'+this).slice(-2);
+Number.prototype.zeroPad = function () {
+    return ('0' + this).slice(-2);
 };
