@@ -2,6 +2,7 @@ export const onRequestGet = async ({ request }) => {
     let url = new URL(request.url);
     let tab = url.searchParams.get('tab');
     let type = url.searchParams.get('type');
+    if(!tab || !type) return new Response("{error:true}", { status: 400 });
 
     let vehicles = await fetch("https://files.cloudgdansk.pl/d/otwarte-dane/ztm/baza-pojazdow.json", {
         cf: {

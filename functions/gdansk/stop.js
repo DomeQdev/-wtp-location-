@@ -1,6 +1,7 @@
 export const onRequestGet = async ({ request }) => {
     let url = new URL(request.url);
     let id = url.searchParams.get('id');
+    if(!id) return new Response("{error:true}", { status: 400 });
 
     let response = await fetch(`https://ckan2.multimediagdansk.pl/departures?stopId=${id}`).then(res => res.json()).catch(() => null);
     if(!response) return new Response("{error:true}", { status: 500 });
