@@ -4,8 +4,8 @@ import App from './App';
 import "./App.css";
 
 render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-  document.getElementById('root')
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>,
+    document.getElementById('root')
 );
