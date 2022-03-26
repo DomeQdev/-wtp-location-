@@ -25,7 +25,7 @@ export const onRequestGet = async ({ request }) => {
     }).then(res => res.json()).catch(() => null);
     if (!stopTimes) return new Response("{error:true}", { status: 500 });
 
-    let order = stopTimes.stopTime.find(stopTime => stopTime.tripId === Number(trip) && stopTime.stopSequence === 0 && stop.departureTime.split("T")[1] === start).order;
+    let order = stopTimes.stopTimes.find(stopTime => stopTime.tripId === Number(trip) && stopTime.stopSequence === 0 && stopTime.departureTime.split("T")[1] === start).order;
 
     let stopTime = stopTimes.stopTimes.filter(stopTime => stopTime.tripId === Number(trip) && stopTime.order === order);
     if (!stopTime[0]) return new Response("{error:true}", { status: 500 });
