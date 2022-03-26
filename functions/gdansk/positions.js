@@ -7,11 +7,11 @@ export const onRequestGet = async () => {
         return {
             brigade: vehicle.vehicleService.split("-")[1],
             deg: vehicle.direction,
-            lastPing: new Date(generated).getTime(),
+            lastPing: new Date(vehicle.generated).getTime(),
             line: vehicle.routeShortName,
             location: [vehicle.lat, vehicle.lon],
             tab: vehicle.vehicleCode,
-            trip: `${vehicle.routeId}${start.getFullYear()}${(start.getMonth() + 1).zeroPad()}${start.getDate().zeroPad()}${start.getHours().zeroPad()}${start.getMinutes().zeroPad()}`,
+            trip: `${vehicle.routeShortName}${start.getFullYear()}${(start.getMonth() + 1).zeroPad()}${start.getDate().zeroPad()}${start.getHours().zeroPad()}${start.getMinutes().zeroPad()}`,
             type: vehicle.routeShortName < 20 ? "tram" : "bus",
             delay: vehicle.delay || 0
         }
