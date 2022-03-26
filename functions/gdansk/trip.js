@@ -2,7 +2,8 @@ export const onRequestGet = async ({ request }) => {
     let url = new URL(request.url);
     let route = url.searchParams.get('route');
     let trip = url.searchParams.get('trip');
-    if (!route || !trip) return new Response("{error:true}", { status: 400 });
+    let order = url.searchParams.get('order');
+    if (!route || !trip || !order) return new Response("{error:true}", { status: 400 });
 
     let date = `${new Date().getFullYear()}-${(new Date().getMonth() + 1).zeroPad()}-${new Date().getDate().zeroPad()}`
 
@@ -24,7 +25,7 @@ export const onRequestGet = async ({ request }) => {
     }).then(res => res.json()).catch(() => null);
     if (!stopTimes) return new Response("{error:true}", { status: 500 });
 
-    let stopTime = stopTimes.stopTimes.filter(stopTime => stopTime.tripId === Number(trip));
+    let stopTime = stopTimes.stopTimes.filter(stopTime => stopTime.tripId === Number(trip) && stopTime.order === Number(order));
     if (!stopTime[0]) return new Response("{error:true}", { status: 500 });
 
     let stops = await fetch("https://ckan.multimediagdansk.pl/dataset/c24aa637-3619-4dc2-a171-a23eec8f2172/resource/d3e96eb6-25ad-4d6c-8651-b1eb39155945/download/stopsingdansk.json", {
