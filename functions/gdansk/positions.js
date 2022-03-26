@@ -10,6 +10,7 @@ export const onRequestGet = async () => {
         location: [vehicle.lat, vehicle.lon],
         tab: vehicle.vehicleCode,
         tripId: vehicle.tripId,
+        start: vehicle.scheduledTripStartTime.split("T")[1].replace("Z", ""),
         headsign: vehicle.headsign,
         type: vehicle.routeShortName < 20 ? "tram" : "bus",
         delay: vehicle.delay || 0
