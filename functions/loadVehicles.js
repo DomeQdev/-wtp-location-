@@ -20,6 +20,7 @@ export const onRequestGet = async () => {
 
 
 async function getSKM() {
+    return [];
     let data = await fetch("https://new-api.domeqalt.repl.co/get/skmPredict").then(res => res.json()).catch(() => null);
     if (!data) return [];
     return data.map(skm => ({
