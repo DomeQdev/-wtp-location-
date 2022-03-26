@@ -6,7 +6,7 @@ export const onRequestGet = async ({ request }) => {
 
     let vehicles = await fetch("https://files.cloudgdansk.pl/d/otwarte-dane/ztm/baza-pojazdow.json", {
         cf: {
-            cacheTtl: 86400,
+            cacheTtl: 86400 * 3,
             cacheEverything: true
         },
         keepalive: true
