@@ -10,6 +10,8 @@ export const onRequestGet = async ({ request }) => {
         let start = new Date(departure.scheduledTripStartTime);
         return {
             line: departure.routeId,
+            type: departure.routeId < 20 ? "tram" : "bus",
+            brigade: departure.vehicleService.split("-")[1],
             headsign: departure.headsign,
             delay: departure.delayInSeconds || 0,
             realTime: new Date(departure.estimatedTime).getTime(),
