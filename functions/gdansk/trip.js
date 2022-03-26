@@ -38,11 +38,11 @@ export const onRequestGet = async ({ request }) => {
     return new Response(JSON.stringify({
         shape: shape.coordinates.map(x => [x[1], x[0]]),
         stops: stopTime.map(stop => {
-            let stop = stops?.stops?.find(s => s.stopId === stop.stopId);
+            let stopData = stops?.stops?.find(s => s.stopId === stop.stopId);
             return {
                 id: stop.stopId,
-                location: [stop?.stopLat, stop?.stopLon],
-                name: `${stop?.stopName} ${stop?.stopCode}`,
+                location: [stopData?.stopLat, stopData?.stopLon],
+                name: `${stopData?.stopName} ${stopData?.stopCode}`,
                 time: czas(stop.departureTime.split("T")[1])
             }
         })
