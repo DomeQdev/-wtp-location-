@@ -11,6 +11,7 @@ export const onRequestGet = async () => {
         tab: vehicle.vehicleCode,
         tripId: vehicle.tripId,
         start: String(String(vehicle.scheduledTripStartTime).split("T")[1]).replace("Z", ""),
+        vehicleService: vehicle.vehicleService,
         headsign: vehicle.headsign,
         type: vehicle.routeShortName < 20 ? "tram" : "bus",
         delay: vehicle.delay || 0

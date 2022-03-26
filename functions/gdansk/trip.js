@@ -3,6 +3,8 @@ export const onRequestGet = async ({ request }) => {
     let route = url.searchParams.get('route');
     let trip = url.searchParams.get('trip');
     let start = url.searchParams.get('start');
+    let service = url.searchParams.get('service');
+
     if (!route || !trip || !start) return new Response("{error:true}", { status: 400 });
 
     let date = `${new Date().getFullYear()}-${(new Date().getMonth() + 1).zeroPad()}-${new Date().getDate().zeroPad()}`
@@ -25,7 +27,7 @@ export const onRequestGet = async ({ request }) => {
     }).then(res => res.json()).catch(() => null);
     if (!stopTimes) return new Response("{error:true}", { status: 500 });
 
-    let order = stopTimes.stopTimes.find(stopTime => stopTime.tripId === Number(trip) && stopTime.stopSequence === 0 && stopTime.departureTime.split("T")[1] === start).order;
+    let order = stopTimes.stopTimes.find(stopTime => stopTime.tripId === Number(trip) && stopTime.stopSequence === 0 && stopTime.departureTime.split("T")[1] === start && stopTime.vehicleService === service).order;
 
     let stopTime = stopTimes.stopTimes.filter(stopTime => stopTime.tripId === Number(trip) && stopTime.order === order);
     if (!stopTime[0]) return new Response("{error:true}", { status: 500 });
