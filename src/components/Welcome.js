@@ -30,7 +30,7 @@ export default () => {
             <FormControl>
                 <RadioGroup value={city} onChange={({ target }) => setCity(target.value)}>
                     <FormControlLabel value="warsaw" control={<Radio />} label="Warszawa" />
-                    <FormControlLabel value="gdansk" control={<Radio />} label="Gdańsk" />
+                    <FormControlLabel value="gdansk" control={<Radio />} label="Trójmiasto" />
                 </RadioGroup>
             </FormControl>
         </>}

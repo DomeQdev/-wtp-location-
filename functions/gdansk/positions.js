@@ -11,6 +11,7 @@ export const onRequestGet = async () => {
             line: vehicle.routeShortName,
             location: [vehicle.lat, vehicle.lon],
             tab: vehicle.vehicleCode,
+            tripId: vehicle.tripId,
             trip: `${vehicle.routeShortName}${start.getFullYear()}${(start.getMonth() + 1).zeroPad()}${start.getDate().zeroPad()}${start.getHours().zeroPad()}${start.getMinutes().zeroPad()}`,
             type: vehicle.routeShortName < 20 ? "tram" : "bus",
             delay: vehicle.delay || 0
