@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, ZoomControl, Marker, Circle } from 'react-leaflet';
+import { MapContainer, TileLayer, ZoomControl, Marker, Circle, Popup } from 'react-leaflet';
 import { GpsFixed, Settings, FilterList } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
@@ -9,9 +9,12 @@ export default ({ children, city }) => {
     const navigate = useNavigate();
     const [map, setMap] = useState(null);
     const [userLocation, setUserLocation] = useState(null);
+    const [userAngle, setUserAngle] = useState(null);
 
     useEffect(locate, map);
-    console.log(userLocation)
+
+    window.addEventListener("deviceorientation", ({ alpha }) => setUserAngle(alpha));
+    console.log(userAngle, userLocation);
 
     return <>
         <MapContainer
@@ -33,7 +36,9 @@ export default ({ children, city }) => {
                 <a href onClick={() => navigate("/settings")}><Settings sx={{ fontSize: 19, marginTop: 0.75 }} /></a>
             </div>
             {userLocation ? <>
-                <Marker position={userLocation.latlng} />
+                <Marker position={userLocation.latlng}>
+                    <Popup>Dokładność lokalizacji: {Math.floor(userLocation.accuracy)}m</Popup>
+                </Marker>
                 <Circle center={userLocation.latlng} radius={userLocation.accuracy} weight={0} fillColor={"#136AEC"} fillOpacity={0.2} />
             </> : null}
             {children}
