@@ -1,5 +1,3 @@
 export const onRequestGet = async ({ request }) => {
-    return new Response(JSON.stringify({
-
-    }));
+    return new Response(JSON.stringify([]));
 };
