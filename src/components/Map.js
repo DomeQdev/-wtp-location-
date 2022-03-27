@@ -47,9 +47,9 @@ export default ({ children, city }) => {
 
     function locate() {
         if(!map) return;
-        if(userLocation) return map.setView(userLocation.latlng, userLocation.accuracy / 0.9);
+        if(userLocation) return map.setView(userLocation.latlng, 17);
         map.locate({ watch: true })
-            .once("locationfound", ({ latlng, accuracy }) => map.setView(latlng, accuracy / 0.9))
+            .once("locationfound", ({ latlng, accuracy }) => map.setView(latlng, 17))
             .on("locationfound", setUserLocation);
     }
 };
