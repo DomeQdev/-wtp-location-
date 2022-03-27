@@ -9,8 +9,8 @@ export default ({ children, city }) => {
 
     return <>
         <MapContainer
-            center={localStorage.bounds?.split(",") || city === "warsaw" ? [52.22983095298667, 21.0117354814593] : [54.34610966679864, 18.644629872390432]}
-            zoom={localStorage.zoom || 16}
+            center={localStorage.getItem(`${city}.bounds`)?.split(",") || (city === "warsaw" ? [52.22983095298667, 21.0117354814593] : [54.34610966679864, 18.644629872390432])}
+            zoom={localStorage.getItem(`${city}.zoom`) || 16}
             minZoom={7}
             maxZoom={18}
             zoomControl={false}
