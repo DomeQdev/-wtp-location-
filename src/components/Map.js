@@ -1,11 +1,17 @@
-import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
+import { MapContainer, TileLayer, ZoomControl, Marker, Circle } from 'react-leaflet';
 import { GpsFixed, Settings, FilterList } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
 
 import "leaflet/dist/leaflet.css";
 
 export default ({ children, city }) => {
     const navigate = useNavigate();
+    const [map, setMap] = useState(null);
+    const [userLocation, setUserLocation] = useState(null);
+
+    useEffect(locate, map);
+    console.log(userLocation)
 
     return <>
         <MapContainer
@@ -14,18 +20,31 @@ export default ({ children, city }) => {
             minZoom={7}
             maxZoom={18}
             zoomControl={false}
+            whenCreated={setMap}
             style={{ width: "100%", height: "100vh" }}
         >
             <TileLayer url={"https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"} />
             <ZoomControl position="topright" />
             <div className="leaflet-control-zoom leaflet-bar leaflet-control" style={{ top: 80, right: 10, position: "absolute" }}>
-                <a href onClick={() => alert("upcoming")}><GpsFixed sx={{ fontSize: 19, marginTop: 0.75 }} /></a>
+                <a href onClick={() => locate()}><GpsFixed sx={{ fontSize: 19, marginTop: 0.75 }} /></a>
             </div>
             <div className="leaflet-control-zoom leaflet-bar leaflet-control" style={{ top: 120, right: 10, position: "absolute" }}>
                 <a href onClick={() => navigate("/filter")}><FilterList sx={{ fontSize: 19, marginTop: 0.75 }} /></a>
                 <a href onClick={() => navigate("/settings")}><Settings sx={{ fontSize: 19, marginTop: 0.75 }} /></a>
             </div>
+            {userLocation ? <>
+                <Marker position={userLocation.latlng} />
+                <Circle center={userLocation.latlng} radius={userLocation.accuracy} weight={0} fillColor={"#136AEC"} fillOpacity={0.2} />
+            </> : null}
             {children}
         </MapContainer>
     </>;
+
+    function locate() {
+        if(!map) return;
+        if(userLocation) return map.setView(userLocation.latlng, userLocation.accuracy / 0.9);
+        map.locate({ watch: true })
+            .once("locationfound", ({ latlng, accuracy }) => map.setView(latlng, accuracy / 0.9))
+            .on("locationfound", setUserLocation);
+    }
 };
