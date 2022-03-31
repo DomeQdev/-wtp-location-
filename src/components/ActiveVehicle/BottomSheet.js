@@ -65,7 +65,7 @@ const Sheet = ({ vehicle, trip }) => {
 export default Sheet;
 
 function minutesUntilTimestamp(timestamp) {
-    let diff = new Date(timestamp) - new Date(Date.now() - 2 * 60 * 60 * 1000);
+    let diff = new Date(timestamp) - new Date(Date.now() + 2 * 60 * 60 * 1000);
     return Math.ceil(diff / 1000 / 60);
 }
 
