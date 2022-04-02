@@ -4,7 +4,7 @@ export const onRequestGet = async ({ request }) => {
     let type = url.searchParams.get('type');
     if (!tab || !type) return new Response("{error:true}", { status: 400 });
 
-    let vehicles = await fetch("https://files.cloudgdansk.pl/d/otwarte-dane/ztm/baza-pojazdow.json", {
+    let vehicles = await fetch("https://static.higenku.org/https://files.cloudgdansk.pl/d/otwarte-dane/ztm/baza-pojazdow.json", {
         cf: {
             cacheTtl: 86400 * 3,
             cacheEverything: true

@@ -60,7 +60,7 @@ export default () => {
             <h2>Już prawie!</h2>
             <FormControlLabel
                 control={<Toggle sx={{ m: 1 }} checked={grouping} onChange={() => setGrouping(!grouping)} />}
-                label="Grupowanie pojazdów zamiast ich ukrywania"
+                label="Grupowanie pojazdów"
             />
             <br />
             <FormControlLabel
@@ -70,7 +70,7 @@ export default () => {
             <br />
             <FormControlLabel
                 control={<Toggle sx={{ m: 1 }} checked={showVehicleInfo} onChange={() => setShowVehicleInfo(!showVehicleInfo)} />}
-                label="Pokazuj tylko informacje o pojeździe"
+                label="Tylko informacje o pojeździe"
             />
         </>}
 

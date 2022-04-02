@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import useWebSocket from 'react-use-websocket';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
-import { useMapEvents } from "react-leaflet";
+import { useMap, useMapEvents } from "react-leaflet";
 import { Routes, Route } from "react-router-dom";
 
-import Map from "../Map";
 import VehicleMarker from "./active/VehicleMarker";
 
 export default () => {
+    const map = useMap();
     const [vehicles, setVehicles] = useState([]);
-    const [bounds, setBounds] = useState(localStorage.getItem("warsaw.bounds"));
+    const [bounds, setBounds] = useState(map.getBounds());
 
     const group = JSON.parse(localStorage?.grouping || "false");
 
@@ -27,25 +27,27 @@ export default () => {
         fetch("/warsaw/positions").then(res => res.json()).then(setVehicles).catch(() => null);
     }, []);
 
-    const filteredVehicles = vehicles;
+    let filteredVehicles = vehicles;
+    let inBounds = filteredVehicles.filter(vehicle => bounds?.contains(vehicle?.location));
 
-    return <Map city={"warsaw"}>
+    return <>
         <Events />
         <Routes>
             <Route path="/" element={group 
-                ? <MarkerClusterGroup>{filteredVehicles.map(vehicle => <VehicleMarker vehicle={vehicle} key={vehicle.trip || vehicle.tab} />)}</MarkerClusterGroup>
-                : null} />
+                ? <MarkerClusterGroup animateAddingMarkers>{filteredVehicles.map(vehicle => <VehicleMarker vehicle={vehicle} key={vehicle.trip || vehicle.tab} />)}</MarkerClusterGroup>
+                : (inBounds.length <= 150 ? inBounds.map(vehicle => <VehicleMarker vehicle={vehicle} key={vehicle.trip || vehicle.tab} />) : null)} />
             <Route path="/:type/:tab" element={<></>} />
+            <Route path="/stop/:id" element={<></>} />
             <Route path="/filter" element={<></>} />
         </Routes>
-    </Map>;
+    </>;
 
     function Events() {
         useMapEvents({
-            moveend: ({ target: map }) => {
+            moveend: () => {
                 setBounds(map.getBounds());
-                localStorage.setItem("warsaw.bounds", [map.getCenter().lat, map.getCenter().lng]);
-                localStorage.setItem("warsaw.zoom", map.getZoom());
+                localStorage.setItem("warsaw.pos", [map.getCenter().lat, map.getCenter().lng]);
+                localStorage.setItem("warsaws.zoom", map.getZoom());
             }
         });
         return null;

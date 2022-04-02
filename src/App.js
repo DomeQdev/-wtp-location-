@@ -2,6 +2,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 
+import Map from "./components/Map";
 import Warsaw from "./components/city/Warsaw";
 import Gdansk from "./components/city/Gdansk";
 import Welcome from "./components/Welcome";
@@ -16,8 +17,8 @@ export default () => {
         <ThemeProvider theme={createTheme({ palette: { mode: darkTheme && localStorage?.city ? "dark" : "light" } })}>
             <Routes>
                 <Route path="/" element={<Welcome />} />
-                <Route path="/warsaw/*" element={<Warsaw />} />
-                <Route path="/gdansk/*" element={<Gdansk />} />
+                <Route path="/warsaw/*" element={<Map city={"warsaw"}><Warsaw /></Map>} />
+                <Route path="/gdansk/*" element={<Map city={"gdansk"}><Gdansk /></Map>} />
                 <Route path="*" element={<Welcome />} />
             </Routes>
             <ToastContainer

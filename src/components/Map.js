@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer, ZoomControl, Marker, Circle, Popup } from 'react-leaflet';
 import { GpsFixed, Settings, FilterList } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import "leaflet/dist/leaflet.css";
 
@@ -11,14 +11,11 @@ export default ({ children, city }) => {
     const [userLocation, setUserLocation] = useState(null);
     const [userAngle, setUserAngle] = useState(null);
 
-    useEffect(locate, map);
-
     window.addEventListener("deviceorientation", ({ alpha }) => setUserAngle(alpha));
-    console.log(userAngle, userLocation);
 
     return <>
         <MapContainer
-            center={localStorage.getItem(`${city}.bounds`)?.split(",") || (city === "warsaw" ? [52.22983095298667, 21.0117354814593] : [54.34610966679864, 18.644629872390432])}
+            center={localStorage.getItem(`${city}.pos`)?.split(",") || (city === "warsaw" ? [52.22983095298667, 21.0117354814593] : [54.34610966679864, 18.644629872390432])}
             zoom={localStorage.getItem(`${city}.zoom`) || 16}
             minZoom={7}
             maxZoom={18}
