@@ -1,12 +1,16 @@
-import { get } from "axios";
-
 export const onRequestGet = async ({ request }) => {
     let url = new URL(request.url);
     let tab = url.searchParams.get('tab');
     let type = url.searchParams.get('type');
     if (!tab || !type) return new Response("{error:true}", { status: 400 });
 
-    let vehicles = await get("https://files.cloudgdansk.pl/d/otwarte-dane/ztm/baza-pojazdow.json").then(res => res.data?.results).catch(() => null);
+    let vehicles = await fetch("https://files.cloudgdansk.pl/d/otwarte-dane/ztm/baza-pojazdow.json", {
+        cf: {
+            cacheTtl: 86400 * 3,
+            cacheEverything: true
+        },
+        keepalive: true
+    }).then(res => res.json()).catch(() => null);
     if (!vehicles) return new Response("{error:true}", { status: 500 });
 
     let vehicleData = vehicles.find(v => v.nr_inwentarzowy === tab && v.rodzaj_pojazdu === (type === "bus" ? "Autobus" : "Tramwaj"));
