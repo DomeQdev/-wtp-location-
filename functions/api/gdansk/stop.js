@@ -16,7 +16,7 @@ export const onRequestGet = async ({ request }) => {
             delay: departure.delayInSeconds || 0,
             realTime: new Date(departure.estimatedTime).getTime(),
             scheduledTime: new Date(departure.theoreticalTime).getTime(),
-            vehicle: departure.vehicleCode,
+            vehicle: String(departure.vehicleCode),
             trip: `${departure.routeId}${start.getFullYear()}${(start.getMonth() + 1).zeroPad()}${start.getDate().zeroPad()}${start.getHours().zeroPad()}${start.getMinutes().zeroPad()}`
         }
     })));
