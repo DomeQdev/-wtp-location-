@@ -23,11 +23,11 @@ export default () => {
         shouldReconnect: () => true,
         reconnectInterval: 10000,
         reconnectAttempts: 15,
-        retryOnError: true
+        retryOnError: trues
     });*/
 
     useEffect(() => {
-        fetch("https://static.higenku.org/https://rewrite-rewrite.wtp-location-rewrite.pages.dev/gdansk/positions").then(res => res.json()).then(setVehicles).catch(() => null);
+        fetch("https://static.higenku.org/https://rewrite-rewrite.wtp-location-rewrite.pages.dev/api/gdansk/positions").then(res => res.json()).then(setVehicles).catch(() => null);
     }, []);
 
     let filteredVehicles = vehicles;
@@ -39,9 +39,9 @@ export default () => {
             <Route path="/" element={group
                 ? <MarkerClusterGroup animateAddingMarkers>{filteredVehicles.map(vehicle => <VehicleMarker vehicle={vehicle} key={vehicle.trip || vehicle.tab} />)}</MarkerClusterGroup>
                 : (inBounds.length <= 1050 ? inBounds.map(vehicle => <VehicleMarker vehicle={vehicle} key={vehicle.trip || vehicle.tab} />) : null)} />
-            <Route path="/stop/:id" element={<ActiveStop city={"gdansk"} />} />
-            <Route path="/:type/:tab" element={<ActiveVehicle city={"gdansk"} />} />
-            <Route path="/filter" element={<Filter city={"gdansk"} />} />
+            <Route path="/stop/:id" element={<ActiveStop city={"gdansk"} vehicles={vehicles} />} />
+            <Route path="/:type/:tab" element={<ActiveVehicle city={"gdansk"} vehicles={vehicles} />} />
+            <Route path="/filter" element={<Filter city={"gdansk"} vehicles={vehicles} />} />
         </Routes>
     </>;
 

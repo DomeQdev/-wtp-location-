@@ -1,3 +1,3 @@
-export default ({ city }) => {
+export default ({ city, vehicles }) => {
 
 };
