@@ -4,7 +4,10 @@ import MarkerClusterGroup from 'react-leaflet-markercluster';
 import { useMap, useMapEvents } from "react-leaflet";
 import { Routes, Route } from "react-router-dom";
 
-import VehicleMarker from "./active/VehicleMarker";
+import VehicleMarker from "./routes/VehicleMarker";
+import ActiveStop from "./routes/ActiveStop";
+import ActiveVehicle from "./routes/ActiveVehicle";
+import Filter from "./routes/Filter";
 
 export default () => {
     const map = useMap();
@@ -33,12 +36,12 @@ export default () => {
     return <>
         <Events />
         <Routes>
-            <Route path="/" element={group 
+            <Route path="/" element={group
                 ? <MarkerClusterGroup animateAddingMarkers>{filteredVehicles.map(vehicle => <VehicleMarker vehicle={vehicle} key={vehicle.trip || vehicle.tab} />)}</MarkerClusterGroup>
                 : (inBounds.length <= 1050 ? inBounds.map(vehicle => <VehicleMarker vehicle={vehicle} key={vehicle.trip || vehicle.tab} />) : null)} />
-            <Route path="/:type/:tab" element={<></>} />
-            <Route path="/stop/:id" element={<></>} />
-            <Route path="/filter" element={<></>} />
+            <Route path="/stop/:id" element={<ActiveStop city={"gdansk"} />} />
+            <Route path="/:type/:tab" element={<ActiveVehicle city={"gdansk"} />} />
+            <Route path="/filter" element={<Filter city={"gdansk"} />} />
         </Routes>
     </>;
 

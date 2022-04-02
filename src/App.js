@@ -2,7 +2,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 
-import Map from "./components/Map";
+import Map from "./components/misc/Map";
 import Warsaw from "./components/city/Warsaw";
 import Gdansk from "./components/city/Gdansk";
 import Welcome from "./components/Welcome";

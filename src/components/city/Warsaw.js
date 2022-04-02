@@ -4,7 +4,10 @@ import MarkerClusterGroup from 'react-leaflet-markercluster';
 import { useMap, useMapEvents } from "react-leaflet";
 import { Routes, Route } from "react-router-dom";
 
-import VehicleMarker from "./active/VehicleMarker";
+import VehicleMarker from "./routes/VehicleMarker";
+import ActiveStop from "./routes/ActiveStop";
+import ActiveVehicle from "./routes/ActiveVehicle";
+import Filter from "./routes/Filter";
 
 export default () => {
     const map = useMap();
@@ -24,7 +27,7 @@ export default () => {
     });
 
     useEffect(() => {
-        fetch("/warsaw/positions").then(res => res.json()).then(setVehicles).catch(() => null);
+        fetch("/api/warsaw/positions").then(res => res.json()).then(setVehicles).catch(() => null);
     }, []);
 
     let filteredVehicles = vehicles;
@@ -33,12 +36,12 @@ export default () => {
     return <>
         <Events />
         <Routes>
-            <Route path="/" element={group 
+            <Route path="/" element={group
                 ? <MarkerClusterGroup animateAddingMarkers>{filteredVehicles.map(vehicle => <VehicleMarker vehicle={vehicle} key={vehicle.trip || vehicle.tab} />)}</MarkerClusterGroup>
                 : (inBounds.length <= 150 ? inBounds.map(vehicle => <VehicleMarker vehicle={vehicle} key={vehicle.trip || vehicle.tab} />) : null)} />
-            <Route path="/:type/:tab" element={<></>} />
-            <Route path="/stop/:id" element={<></>} />
-            <Route path="/filter" element={<></>} />
+            <Route path="/stop/:id" element={<ActiveStop city={"gdansk"} />} />
+            <Route path="/:type/:tab" element={<ActiveVehicle city={"gdansk"} />} />
+            <Route path="/filter" element={<Filter city={"gdansk"} />} />
         </Routes>
     </>;
 
@@ -47,7 +50,7 @@ export default () => {
             moveend: () => {
                 setBounds(map.getBounds());
                 localStorage.setItem("warsaw.pos", [map.getCenter().lat, map.getCenter().lng]);
-                localStorage.setItem("warsaws.zoom", map.getZoom());
+                localStorage.setItem("warsaw.zoom", map.getZoom());
             }
         });
         return null;
