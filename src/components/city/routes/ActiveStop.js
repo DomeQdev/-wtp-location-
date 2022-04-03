@@ -45,7 +45,7 @@ export default ({ city, vehicles }) => {
             snapPoints={({ maxHeight }) => [maxHeight / 4, maxHeight * 0.6, maxHeight - 40]}
         >
             <List>
-                {dep?.map((departure, i) => (
+                {dep ? dep?.map((departure, i) => (
                     <ListItem button={!!departure?.vehicle} key={departure.trip} onClick={() => map.setView(vehicles.find(x => x.tab === departure.vehicle && x.type === departure.type)?.location || location, 17)}>
                         <ListItemAvatar><b style={{ color: "white", backgroundColor: departure?.color, borderRadius: "25px", padding: "5px", paddingLeft: "10px", paddingRight: "10px", display: "inline-flex", alignItems: "center" }}>{types[departure?.type]}&nbsp;{departure?.line}</b></ListItemAvatar>
                         <ListItemText>
@@ -59,7 +59,7 @@ export default ({ city, vehicles }) => {
                             </div>
                         </ListItemText>
                     </ListItem>
-                )).reduce((prev, curr) => [prev, <Divider variant="inset" component="li" key={Math.random()} sx={{ backgroundColor: "#DCCDCD", marginLeft: "15px", marginRight: "15px" }} />, curr]) || <h1 style={{ textAlign: "center" }}>Ładowanie</h1>}
+                )).reduce((prev, curr) => [prev, <Divider variant="inset" component="li" key={Math.random()} sx={{ backgroundColor: "#DCCDCD", marginLeft: "15px", marginRight: "15px" }} />, curr]) : <h1 style={{ textAlign: "center" }}>-</h1>}
             </List>
         </BottomSheet>
     </>;

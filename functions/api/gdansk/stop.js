@@ -18,7 +18,7 @@ export const onRequestGet = async ({ request }) => {
     let stopData = stops.find(s => s.stopId === Number(id));
 
     return new Response(JSON.stringify({
-        name: stopData ? `${stopData?.stopName || stopData?.stopDesc} ${stopData?.stopCode}` : "Przystanek",
+        name: stopData ? `${stopData?.stopName || stopData?.stopDesc} ${stopData?.stopCode || ""}` : "Przystanek",
         location: stopData ? [stopData?.stopLat, stopData?.stopLon] : null,
         departures: response.departures.map(departure => {
             let start = new Date(departure.scheduledTripStartTime);
