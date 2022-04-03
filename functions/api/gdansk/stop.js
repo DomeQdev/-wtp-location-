@@ -8,13 +8,13 @@ export const onRequestGet = async ({ request }) => {
     let response = await fetch(`https://ckan2.multimediagdansk.pl/departures?stopId=${id}`).then(res => res.json()).catch(() => null);
     if (!response) return new Response("{error:true}", { status: 500 });
 
-    let stops = await fetch("https://ckan.multimediagdansk.pl/dataset/c24aa637-3619-4dc2-a171-a23eec8f2172/resource/d3e96eb6-25ad-4d6c-8651-b1eb39155945/download/stopsingdansk.json", {
+    let stops = await fetch("https://ckan.multimediagdansk.pl/dataset/c24aa637-3619-4dc2-a171-a23eec8f2172/resource/4c4025f0-01bf-41f7-a39f-d156d201b82b/download/stops.json", {
         cf: {
             cacheTtl: 86400 * 3,
             cacheEverything: true
         },
         keepalive: true
-    }).then(res => res.json()).then(res => res.stops).catch(() => []);
+    }).then(res => res.json()).then(res => Object.values(res)[0].stops).catch(() => []);
     let stopData = stops.find(s => s.stopShortName === id);
 
     return new Response(JSON.stringify({

@@ -2,8 +2,8 @@ import { BottomSheet } from "react-spring-bottom-sheet";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useMap } from "react-leaflet";
-import { List, ListItem, ListItemText, ListItemAvatar, Divider, Avatar } from "@mui/material";
-import { DirectionsBus, Tram, DirectionsTransit, DirectionsRailway, Subway, Train } from '@mui/icons-material';
+import { List, ListItem, ListItemText, ListItemAvatar, Divider } from "@mui/material";
+import { DirectionsBus, Tram, DirectionsTransit, DirectionsRailway, Subway, Train, AirportShuttle } from '@mui/icons-material';
 import VehicleMarker from "./VehicleMarker";
 
 const types = {
@@ -12,7 +12,8 @@ const types = {
     metro: <Subway style={{ height: "20px", width: "20px" }} />,
     wkd: <DirectionsRailway style={{ height: "20px", width: "20px" }} />,
     skm: <Train style={{ height: "20px", width: "20px" }} />,
-    km: <DirectionsTransit style={{ height: "20px", width: "20px" }} />
+    km: <DirectionsTransit style={{ height: "20px", width: "20px" }} />,
+    trolley: <AirportShuttle style={{ height: "20px", width: "20px" }} />
 };
 
 export default ({ city, vehicles }) => {
@@ -45,8 +46,8 @@ export default ({ city, vehicles }) => {
         >
             <List>
                 {dep?.map((departure, i) => (
-                    <ListItem button={!!departure?.vehicle} disabled={!departure?.vehicle} key={departure.trip} onClick={() => map.setView(vehicles.find(x => x.tab === departure.vehicle && x.type === departure.type)?.location || location, 17)}>
-                        <ListItemAvatar><b style={{ color: "white", backgroundColor: departure?.vehicle ? departure?.color : "#ADADAD", borderRadius: "25px", padding: "5px", paddingLeft: "10px", paddingRight: "10px", display: "inline-flex", alignItems: "center" }}>{types[departure?.type]}&nbsp;{departure?.line}</b></ListItemAvatar>
+                    <ListItem button={!!departure?.vehicle} key={departure.trip} onClick={() => map.setView(vehicles.find(x => x.tab === departure.vehicle && x.type === departure.type)?.location || location, 17)}>
+                        <ListItemAvatar><b style={{ color: "white", backgroundColor: departure?.color, borderRadius: "25px", padding: "5px", paddingLeft: "10px", paddingRight: "10px", display: "inline-flex", alignItems: "center" }}>{types[departure?.type]}&nbsp;{departure?.line}</b></ListItemAvatar>
                         <ListItemText>
                             <div style={{ float: "left", textAlign: "left", color: departure.realTime < Date.now() ? "#ADADAD" : null }}>
                                 <div style={{ display: "inline-flex", alignItems: "center" }}>
