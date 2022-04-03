@@ -27,9 +27,10 @@ export const onRequestGet = async ({ request }) => {
     }).then(res => res.json()).catch(() => null);
     if (!stopTimes) return new Response("{error:true}", { status: 500 });
 
-    let order = stopTimes.stopTimes.find(stopTime => stopTime.tripId === Number(trip) && stopTime.stopSequence === 0 && stopTime.departureTime.split("T")[1] === start && stopTime.vehicleService === service).order;
+    let order = stopTimes.stopTimes.findIndex(stopTime => stopTime.tripId === Number(trip) && stopTime.stopSequence === 0 && stopTime.departureTime.split("T")[1] === start && stopTime.busServiceName === service);
+    if(order === -1) return new Response("{error:true}", { status: 500 });
 
-    let stopTime = stopTimes.stopTimes.filter(stopTime => stopTime.tripId === Number(trip) && stopTime.order === order);
+    let stopTime = stopTimes.stopTimes.slice(order).filter((x, i) => x.stopSequence === i);
     if (!stopTime[0]) return new Response("{error:true}", { status: 500 });
 
     let stops = await fetch("https://ckan.multimediagdansk.pl/dataset/c24aa637-3619-4dc2-a171-a23eec8f2172/resource/d3e96eb6-25ad-4d6c-8651-b1eb39155945/download/stopsingdansk.json", {
@@ -62,4 +63,14 @@ function czas(time) {
     let hours = Number(time.split(":")[0]);
     let minutes = Number(time.split(":")[1]);
     return new Date().setHours(0, 0, 0, 0) + ((hours * 60 + minutes) * 60 * 1000);
+}
+
+function groupDuplicates(array, sortByKey = "location") {
+    let groups = {};
+    array.forEach(item => {
+        let key = item[sortByKey];
+        groups[key] = groups[key] || [];
+        groups[key].push(item);
+    });
+    return Object.values(groups);
 }
