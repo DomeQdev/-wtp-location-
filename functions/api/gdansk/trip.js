@@ -1,3 +1,6 @@
+import { point, nearestPointOnLine, lineString } from "@turf/turf";
+import routes from "./routes.json";
+
 export const onRequestGet = async ({ request }) => {
     let url = new URL(request.url);
     let route = url.searchParams.get('route');
@@ -41,15 +44,24 @@ export const onRequestGet = async ({ request }) => {
         keepalive: true
     }).then(res => res.json()).catch(() => null);
 
+    let line = lineString(shape.coordinates.map(x => [x[1], x[0]]));
     return new Response(JSON.stringify({
+        line: routes[route].line,
+        headsign: null,
+        color: routes[route].color,
         shape: shape.coordinates.map(x => [x[1], x[0]]),
         stops: stopTime.map(stop => {
             let stopData = stops?.stops?.find(s => s.stopId === stop.stopId);
+            let nearest = nearestPointOnLine(line, point([stopData?.stopLat, stopData?.stopLon]), { units: 'meters' });
             return {
-                id: stop.stopId,
-                location: [stopData?.stopLat, stopData?.stopLon],
                 name: `${stopData?.stopName} ${stopData?.stopCode}`,
-                time: czas(stop.departureTime.split("T")[1])
+                id: stop.stopId,
+                on_request: stop.onDemand === 1,
+                location: [stopData?.stopLat, stopData?.stopLon],
+                arrival: czas(stop.arrivalTime.split("T")[1]),
+                departure: czas(stop.departureTime.split("T")[1]),
+                onLine: nearest.properties.location,
+                index: nearest.properties.index
             }
         })
     }));
