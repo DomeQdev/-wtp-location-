@@ -42,7 +42,7 @@ export default ({ city, vehicles }) => {
         {dep?.filter(x => x?.vehicle).map(departure => <VehicleMarker vehicle={departure?.vehicle} key={departure.trip || departure.tab} />)}
         <BottomSheet
             open={true}
-            onDismiss={() => navigate("/")}
+            onDismiss={() => navigate(`/${city}`)}
             blocking={false}
             style={{ zIndex: 30000, position: "absolute" }}
             header={<><b>{name}</b></>}
