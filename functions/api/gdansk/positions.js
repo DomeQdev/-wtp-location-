@@ -1,3 +1,5 @@
+import routes from './routes.json';
+
 export const onRequestGet = async () => {
     let response = await fetch("https://ckan2.multimediagdansk.pl/gpsPositions?v=2").then(res => res.json()).catch(() => null);
     if (!response) return new Response("[]");
@@ -13,7 +15,7 @@ export const onRequestGet = async () => {
         start: String(String(vehicle.scheduledTripStartTime).split("T")[1]).replace("Z", ""),
         vehicleService: vehicle.vehicleService,
         headsign: vehicle.headsign,
-        type: vehicle.routeShortName < 20 ? "tram" : "bus",
+        type: routes.find(x => x.line === String(vehicle.routeShortName))?.type || "bus",
         delay: vehicle.delay || 0
     }))));
 };

@@ -1,3 +1,5 @@
+import routes from './routes.json';
+
 export const onRequestGet = async ({ request }) => {
     let url = new URL(request.url);
     let id = url.searchParams.get('id');
@@ -21,8 +23,8 @@ export const onRequestGet = async ({ request }) => {
         departures: response.departures.map(departure => {
             let start = new Date(departure.scheduledTripStartTime);
             return {
-                line: departure.routeId,
-                type: departure.routeId < 20 ? "tram" : "bus",
+                line: routes[String(departure.routeId)].line,
+                type: routes[String(departure.routeId)].type,
                 brigade: departure.vehicleService.split("-")[1],
                 headsign: departure.headsign,
                 delay: departure.delayInSeconds || 0,
