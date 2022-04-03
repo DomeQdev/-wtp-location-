@@ -9,7 +9,10 @@ export const onRequestGet = async ({ request }) => {
             cacheTtl: 86400 * 3,
             cacheEverything: true
         },
-        keepalive: true
+        keepalive: true,
+        headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36"
+        }
     }).then(res => res.json()).catch(() => null);
     if (!vehicles) return new Response("{error:true}", { status: 500 });
 
