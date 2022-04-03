@@ -24,7 +24,9 @@ export const onRequestGet = async ({ request }) => {
             let start = new Date(departure.scheduledTripStartTime);
             return {
                 line: routes[String(departure.routeId)].line,
+                route: String(departure.routeId),
                 type: routes[String(departure.routeId)].type,
+                color: routes[String(departure.routeId)].color,
                 brigade: departure.vehicleService.split("-")[1],
                 headsign: departure.headsign,
                 delay: departure.delayInSeconds || 0,
