@@ -15,7 +15,7 @@ export const onRequestGet = async ({ request }) => {
         },
         keepalive: true
     }).then(res => res.json()).then(res => Object.values(res)[0].stops).catch(() => []);
-    let stopData = stops.find(s => s.stopShortName === id);
+    let stopData = stops.find(s => s.stopId === Number(id));
 
     return new Response(JSON.stringify({
         name: stopData ? `${stopData?.stopName || stopData?.stopDesc} ${stopData?.stopCode}` : "Przystanek",
