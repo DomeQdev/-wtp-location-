@@ -27,7 +27,7 @@ export default () => {
     });*/
 
     useEffect(() => {
-        fetch("https://static.higenku.org/https://rewrite-rewrite.wtp-location-rewrite.pages.dev/api/gdansk/positions").then(res => res.json()).then(setVehicles).catch(() => null);
+        fetch("/api/gdansk/positions").then(res => res.json()).then(setVehicles).catch(() => null);
     }, []);
 
     let filteredVehicles = vehicles;
