@@ -9,7 +9,7 @@ export default ({ city, vehicles }) => {
     const [{ departures, name, location }, setStop] = useState([]);
 
     useEffect(() => {
-        fetch(`/api/${city}/stop?id=${id}`).then(res => res.json()).then(setDepartures).catch(() => null);
+        fetch(`/api/${city}/stop?id=${id}`).then(res => res.json()).then(setStop).catch(() => null);
     }, []);
 
     return <>
