@@ -13,7 +13,7 @@ export const onRequestGet = async ({ request }) => {
         headers: {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36"
         }
-    }).then(res => res.json()).catch(() => null);
+    }).then(res => res.json()).then(res => res.results).catch(() => []);
     if (!vehicles) return new Response("{error:true}", { status: 500 });
 
     let vehicleData = vehicles.find(v => v.nr_inwentarzowy === tab && v.rodzaj_pojazdu === (type === "bus" ? "Autobus" : "Tramwaj"));
