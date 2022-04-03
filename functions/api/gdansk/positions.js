@@ -15,7 +15,7 @@ export const onRequestGet = async () => {
         start: String(String(vehicle.scheduledTripStartTime).split("T")[1]).replace("Z", ""),
         vehicleService: vehicle.vehicleService,
         headsign: vehicle.headsign,
-        type: routes.find(x => x.line === String(vehicle.routeShortName))?.type || "bus",
+        type: Object.values(routes)?.find(x => x.line === String(vehicle.routeShortName))?.type || "bus",
         delay: vehicle.delay || 0
     }))));
 };
