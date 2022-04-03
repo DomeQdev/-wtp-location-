@@ -8,6 +8,7 @@ import Gdansk from "./components/city/Gdansk";
 import Welcome from "./components/Welcome";
 
 import 'react-toastify/dist/ReactToastify.css';
+import "react-spring-bottom-sheet/dist/style.css"
 import 'react-leaflet-markercluster/dist/styles.min.css';
 
 export default () => {
