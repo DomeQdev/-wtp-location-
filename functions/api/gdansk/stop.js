@@ -23,7 +23,6 @@ export const onRequestGet = async ({ request }) => {
         departures: response.departures.map(departure => {
             return {
                 line: routes[String(departure.routeId)].line,
-                color: trip.color,
                 route: String(departure.routeId),
                 type: routes[String(departure.routeId)].type,
                 color: routes[String(departure.routeId)].color,
@@ -40,9 +39,3 @@ export const onRequestGet = async ({ request }) => {
 Number.prototype.zeroPad = function () {
     return ('0' + this).slice(-2);
 };
-
-function czas(time) {
-    let hours = Number(time.split(":")[0]);
-    let minutes = Number(time.split(":")[1]);
-    return new Date().setHours(0, 0, 0, 0) + ((hours * 60 + minutes) * 60 * 1000);
-}
