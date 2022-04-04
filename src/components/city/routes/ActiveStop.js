@@ -51,7 +51,7 @@ export default ({ city, vehicles }) => {
         >
             <List>
                 {dep?.length ? dep?.map((departure, i) => (
-                    <ListItem button={!!departure?.vehicle} key={departure.trip} onClick={() => navigate(`/${city}/${departure?.type}/${departure?.vehicle?.tab}`)}>
+                    <ListItem button={!!departure?.vehicle} key={departure.trip} onClick={() => departure?.vehicle ? navigate(`/${city}/${departure?.type}/${departure?.vehicle?.tab}`) : null}>
                         <ListItemAvatar><b style={{ color: "white", backgroundColor: departure?.color, borderRadius: "25px", padding: "5px", paddingLeft: "10px", paddingRight: "10px", display: "inline-flex", alignItems: "center" }}>{types[departure?.type]}&nbsp;{departure?.line}</b></ListItemAvatar>
                         <ListItemText>
                             <div style={{ float: "left", textAlign: "left", color: departure.realTime < Date.now() ? "#ADADAD" : null }}>
