@@ -1,4 +1,4 @@
-import routes from './routes.json';
+import routes from './util/routes.json';
 
 export const onRequestGet = async () => {
     let response = await fetch("https://ckan2.multimediagdansk.pl/gpsPositions?v=2").then(res => res.json()).catch(() => null);
@@ -11,9 +11,7 @@ export const onRequestGet = async () => {
         line: vehicle.routeShortName,
         location: [vehicle.lat, vehicle.lon],
         tab: vehicle.vehicleCode,
-        tripId: vehicle.tripId,
-        start: String(String(vehicle.scheduledTripStartTime).split("T")[1]).replace("Z", ""),
-        vehicleService: vehicle.vehicleService,
+        trip: `${Object.values(routes).find(x => x.line === String(vehicle.routeShortName))?.id}_${vehicle.tripId}_${String(String(vehicle.scheduledTripStartTime).split("T")[1]).replace("Z", "")}_${vehicle.serviceId}`,
         headsign: vehicle.headsign,
         type: Object.values(routes)?.find(x => x.line === String(vehicle.routeShortName))?.type || "bus",
         delay: vehicle.delay || 0

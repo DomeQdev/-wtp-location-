@@ -1,4 +1,5 @@
-import routes from './routes.json';
+import routes from './util/routes.json';
+import getTrip from './util/getTrip';
 
 export const onRequestGet = async ({ request }) => {
     let url = new URL(request.url);
@@ -21,9 +22,10 @@ export const onRequestGet = async ({ request }) => {
         name: stopData ? `${stopData?.stopName || stopData?.stopDesc} ${stopData?.stopCode || ""}` : "Przystanek",
         location: stopData ? [stopData?.stopLat, stopData?.stopLon] : null,
         departures: response.departures.map(departure => {
-            let start = new Date(departure.scheduledTripStartTime);
+            let trip = await getTrip(departure.routeId, departure.tripId, czas(departure.scheduledTripStartTime.split("T")[1]), departure.vehicleService);
             return {
                 line: routes[String(departure.routeId)].line,
+                color: trip.color,
                 route: String(departure.routeId),
                 type: routes[String(departure.routeId)].type,
                 color: routes[String(departure.routeId)].color,
@@ -32,8 +34,8 @@ export const onRequestGet = async ({ request }) => {
                 delay: departure.delayInSeconds || 0,
                 realTime: new Date(departure.estimatedTime).getTime(),
                 scheduledTime: new Date(departure.theoreticalTime).getTime(),
-                vehicle: departure.vehicleCode === null ? null : String(departure.vehicleCode),
-                trip: `${departure.routeId}${start.getFullYear()}${(start.getMonth() + 1).zeroPad()}${start.getDate().zeroPad()}${start.getHours().zeroPad()}${start.getMinutes().zeroPad()}`
+                stops: trip.stops,
+                shape: trip.shape
             }
         })
     }));
@@ -42,3 +44,9 @@ export const onRequestGet = async ({ request }) => {
 Number.prototype.zeroPad = function () {
     return ('0' + this).slice(-2);
 };
+
+function czas(time) {
+    let hours = Number(time.split(":")[0]);
+    let minutes = Number(time.split(":")[1]);
+    return new Date().setHours(0, 0, 0, 0) + ((hours * 60 + minutes) * 60 * 1000);
+}
