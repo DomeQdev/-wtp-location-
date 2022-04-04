@@ -20,7 +20,7 @@ export const onRequestGet = async ({ request }) => {
     return new Response(JSON.stringify({
         name: stopData ? `${stopData?.stopName || stopData?.stopDesc} ${stopData?.stopCode || ""}` : "Przystanek",
         location: stopData ? [stopData?.stopLat, stopData?.stopLon] : null,
-        departures: response.departures.map(async(departure) => {
+        departures: response.departures.map(departure => {
             return {
                 line: routes[String(departure.routeId)].line,
                 color: trip.color,
