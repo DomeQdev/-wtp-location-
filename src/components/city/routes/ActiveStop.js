@@ -1,11 +1,12 @@
 import { BottomSheet } from "react-spring-bottom-sheet";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useMap, Polyline } from "react-leaflet";
+import { useMap } from "react-leaflet";
 import { List, ListItem, ListItemText, ListItemAvatar, Divider } from "@mui/material";
 import { DirectionsBus, Tram, DirectionsTransit, DirectionsRailway, Subway, Train, AirportShuttle } from '@mui/icons-material';
-import VehicleMarker from "./VehicleMarker";
 import { toast } from "react-toastify";
+import VehicleMarker from "../markers/VehicleMarker";
+import StopMarker from "../markers/StopMarker";
 
 const types = {
     bus: <DirectionsBus style={{ height: "20px", width: "20px" }} />,
@@ -40,7 +41,7 @@ export default ({ city, vehicles }) => {
 
     return <>
         {dep?.filter(x => x?.vehicle).map(departure => <VehicleMarker vehicle={departure?.vehicle} key={departure.trip || departure.tab} />)}
-        {dep?.length ? dep.filter(d => d?.shape).map(d => <Polyline positions={d?.shape} />) : null}
+        {location ? <StopMarker stop={{ name, location }} color={dep[0]?.color} /> : null}
         <BottomSheet
             open={true}
             onDismiss={() => navigate(`/${city}`)}

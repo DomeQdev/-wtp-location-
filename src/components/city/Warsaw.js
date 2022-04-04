@@ -4,7 +4,7 @@ import MarkerClusterGroup from 'react-leaflet-markercluster';
 import { useMap, useMapEvents } from "react-leaflet";
 import { Routes, Route } from "react-router-dom";
 
-import VehicleMarker from "./routes/VehicleMarker";
+import VehicleMarker from "./markers/VehicleMarker";
 import ActiveStop from "./routes/ActiveStop";
 import ActiveVehicle from "./routes/ActiveVehicle";
 import Filter from "./routes/Filter";

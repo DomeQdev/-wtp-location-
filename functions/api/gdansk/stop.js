@@ -1,5 +1,4 @@
 import routes from './util/routes.json';
-import getTrip from './util/getTrip';
 
 export const onRequestGet = async ({ request }) => {
     let url = new URL(request.url);
@@ -22,7 +21,6 @@ export const onRequestGet = async ({ request }) => {
         name: stopData ? `${stopData?.stopName || stopData?.stopDesc} ${stopData?.stopCode || ""}` : "Przystanek",
         location: stopData ? [stopData?.stopLat, stopData?.stopLon] : null,
         departures: response.departures.map(async(departure) => {
-            let trip = await getTrip(departure.routeId, departure.tripId, czas(departure.scheduledTripStartTime.split("T")[1]), departure.vehicleService);
             return {
                 line: routes[String(departure.routeId)].line,
                 color: trip.color,
@@ -33,9 +31,7 @@ export const onRequestGet = async ({ request }) => {
                 headsign: departure.headsign,
                 delay: departure.delayInSeconds || 0,
                 realTime: new Date(departure.estimatedTime).getTime(),
-                scheduledTime: new Date(departure.theoreticalTime).getTime(),
-                stops: trip.stops,
-                shape: trip.shape
+                scheduledTime: new Date(departure.theoreticalTime).getTime()
             }
         })
     }));
