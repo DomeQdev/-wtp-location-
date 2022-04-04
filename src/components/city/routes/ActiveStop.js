@@ -40,6 +40,7 @@ export default ({ city, vehicles }) => {
 
     return <>
         {dep?.filter(x => x?.vehicle).map(departure => <VehicleMarker vehicle={departure?.vehicle} key={departure.trip || departure.tab} />)}
+        {dep?.length ? dep.map(d => <Polyline positions={dep?.shape} />) : null}
         <BottomSheet
             open={true}
             onDismiss={() => navigate(`/${city}`)}

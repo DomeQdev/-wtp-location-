@@ -21,7 +21,7 @@ export const onRequestGet = async ({ request }) => {
     return new Response(JSON.stringify({
         name: stopData ? `${stopData?.stopName || stopData?.stopDesc} ${stopData?.stopCode || ""}` : "Przystanek",
         location: stopData ? [stopData?.stopLat, stopData?.stopLon] : null,
-        departures: response.departures.map(departure => {
+        departures: response.departures.map(async(departure) => {
             let trip = await getTrip(departure.routeId, departure.tripId, czas(departure.scheduledTripStartTime.split("T")[1]), departure.vehicleService);
             return {
                 line: routes[String(departure.routeId)].line,
