@@ -28,6 +28,7 @@ export default ({ city, vehicles }) => {
         fetch(`/api/${city}/stop?id=${id}`).then(res => res.json()).then(res => {
             setStop(res);
             if(res?.location) map.setView(res.location, 17);
+            setInterval(() => fetch(`/api/${city}/stop?id=${id}`).then(res => res.json()).then(setStop), 100000);
         }).catch(() => {
             toast.error("Nie znaleziono takiego przystanku");
             navigate(`/${city}`);
