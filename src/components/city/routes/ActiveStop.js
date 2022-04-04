@@ -1,7 +1,7 @@
 import { BottomSheet } from "react-spring-bottom-sheet";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useMap } from "react-leaflet";
+import { useMap, Polyline } from "react-leaflet";
 import { List, ListItem, ListItemText, ListItemAvatar, Divider } from "@mui/material";
 import { DirectionsBus, Tram, DirectionsTransit, DirectionsRailway, Subway, Train, AirportShuttle } from '@mui/icons-material';
 import VehicleMarker from "./VehicleMarker";
@@ -40,7 +40,7 @@ export default ({ city, vehicles }) => {
 
     return <>
         {dep?.filter(x => x?.vehicle).map(departure => <VehicleMarker vehicle={departure?.vehicle} key={departure.trip || departure.tab} />)}
-        {dep?.length ? dep.map(d => <Polyline positions={dep?.shape} />) : null}
+        {dep?.length ? dep.filter(d => d?.shape).map(d => <Polyline positions={d?.shape} />) : null}
         <BottomSheet
             open={true}
             onDismiss={() => navigate(`/${city}`)}
@@ -51,7 +51,7 @@ export default ({ city, vehicles }) => {
         >
             <List>
                 {dep?.length ? dep?.map((departure, i) => (
-                    <ListItem button={!!departure?.vehicle} key={departure.trip} onClick={() => map.setView(vehicles.find(x => x.tab === departure.vehicle && x.type === departure.type)?.location || location, 17)}>
+                    <ListItem button={!!departure?.vehicle} key={departure.trip} onClick={() => navigate(`/${city}/${departure?.type}/${departure?.vehicle?.tab}`)}>
                         <ListItemAvatar><b style={{ color: "white", backgroundColor: departure?.color, borderRadius: "25px", padding: "5px", paddingLeft: "10px", paddingRight: "10px", display: "inline-flex", alignItems: "center" }}>{types[departure?.type]}&nbsp;{departure?.line}</b></ListItemAvatar>
                         <ListItemText>
                             <div style={{ float: "left", textAlign: "left", color: departure.realTime < Date.now() ? "#ADADAD" : null }}>
