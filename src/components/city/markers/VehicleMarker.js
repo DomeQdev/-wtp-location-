@@ -31,12 +31,18 @@ const types = {
     }
 };
 
-export default ({ vehicle, trip, vehicleInfo }) => {
-    const icon = divIcon({
+export default ({ vehicle, city, trip = false }) => {
+    const navigate = useNavigate();
+
+    const icon = trip ? divIcon({
+
+    }) : divIcon({
         className: 'vehicle',
-        html: renderToStaticMarkup(<span className={`vehicle-marker`} style={{ color: types[vehicle.type].color, border: `2px solid ${types[vehicle.type].color}` }}> {vehicle.deg ? <ArrowUpward style={{ transform: `rotate(${vehicle.deg}deg)`, height: "16px", width: "16px" }} /> : null}{types[vehicle.type].icon}&nbsp;<b className={"line-number"}>{vehicle.line}</b>{vehicle?.brigade ? <small>/{vehicle.brigade}</small> : null}</span>),
+        html: renderToStaticMarkup(<span className={`vehicle-marker`} style={{ color: types[vehicle.type].color, border: `2px solid ${types[vehicle.type].color}`, fill: types[vehicle.type].color }}> {vehicle.deg ? <ArrowUpward style={{ transform: `rotate(${vehicle.deg}deg)`, height: "16px", width: "16px" }} /> : null}{types[vehicle.type].icon}&nbsp;<b className={"line-number"}>{vehicle.line}</b>{vehicle?.brigade ? <small>/{vehicle.brigade}</small> : null}</span>),
         iconSize: [vehicle.line.includes("-") ? 95 : "auto", 28],
     });
 
-    return <Marker position={vehicle.location} icon={icon} />;
+    return <Marker position={vehicle.location} icon={icon} eventHandlers={{
+        click: () => navigate(`/${city}/${vehicle.type}/${vehicle.tab}`)
+    }} />;
 };

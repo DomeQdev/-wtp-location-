@@ -37,8 +37,8 @@ export default () => {
         <Events />
         <Routes>
             <Route path="/" element={group
-                ? <MarkerClusterGroup animateAddingMarkers>{filteredVehicles.map(vehicle => <VehicleMarker vehicle={vehicle} key={vehicle.trip || vehicle.tab} />)}</MarkerClusterGroup>
-                : (inBounds.length <= 150 ? inBounds.map(vehicle => <VehicleMarker vehicle={vehicle} key={vehicle.trip || vehicle.tab} />) : null)} />
+                ? <MarkerClusterGroup animateAddingMarkers>{filteredVehicles.map(vehicle => <VehicleMarker vehicle={vehicle} city={"warsaw"} key={vehicle.trip || vehicle.tab} />)}</MarkerClusterGroup>
+                : (inBounds.length <= 150 ? inBounds.map(vehicle => <VehicleMarker vehicle={vehicle} city={"warsaw"} key={vehicle.trip || vehicle.tab} />) : null)} />
             <Route path="/stop/:id" element={<ActiveStop city={"warsaw"} vehicles={vehicles} />} />
             <Route path="/:type/:tab" element={<ActiveVehicle city={"warsaw"} vehicles={vehicles} />} />
             <Route path="/filter" element={<Filter city={"warsaw"} vehicles={vehicles} />} />
