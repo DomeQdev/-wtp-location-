@@ -6,6 +6,7 @@ import Map from "./components/misc/Map";
 import Warsaw from "./components/city/Warsaw";
 import Gdansk from "./components/city/Gdansk";
 import Welcome from "./components/Welcome";
+import Fix from './components/misc/Fix';
 
 import 'react-toastify/dist/ReactToastify.css';
 import "react-spring-bottom-sheet/dist/style.css"
@@ -20,6 +21,7 @@ export default () => {
                 <Route path="/" element={<Welcome />} />
                 <Route path="/warsaw/*" element={<Map city={"warsaw"}><Warsaw /></Map>} />
                 <Route path="/gdansk/*" element={<Map city={"gdansk"}><Gdansk /></Map>} />
+                <Route path="/fix" element={<Fix />} />
                 <Route path="*" element={<Welcome />} />
             </Routes>
             <ToastContainer
