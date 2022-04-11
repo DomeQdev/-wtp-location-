@@ -60,7 +60,7 @@ const Settings = () => {
                             <TextField
                                 {...params}
                                 label="Sortowanie po linii"
-                                type="number"
+                                type="text"
                                 inputProps={{
                                     ...params.inputProps,
                                     autoComplete: 'off'
