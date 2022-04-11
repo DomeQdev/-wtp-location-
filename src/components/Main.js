@@ -8,7 +8,7 @@ const Main = () => {
 
     useEffect(() => {
         if(connected) return;
-        let wss = new WebSocket("wss://ws.domeqalt.repl.co");
+        let wss = new WebSocket("wss://ws.matfiu.repl.co");
 
         wss.onopen = () => {
             setConnected(true);
