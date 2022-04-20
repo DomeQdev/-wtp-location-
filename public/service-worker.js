@@ -17,8 +17,13 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     caches.open("zbiorkom")
       .then(cache => cache.match(event.request, {ignoreSearch: true}))
-      .then(response => {
-      return response || fetch(event.request);
+      .then(async(response) => {
+        if(!response) {
+          response = await fetch(event.request);
+          let url = new URL(event.request.url);
+          if(url.pathname !== "/loadVehicles" && url.pathname !== "/tripInfo") event.waitUntil(cache.put(event.request, response))
+        }
+        return response;
     })
   );
 });
