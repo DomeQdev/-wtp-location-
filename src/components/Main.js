@@ -17,7 +17,7 @@ const Main = () => {
         wss.onmessage = ({ data }) => {
             let parsed = JSON.parse(data);
             if(!parsed.length) return;
-            setVehicles(parsed.map(x => ({
+            setVehicles(parsed.filter(x => x.type !== "wkd").map(x => ({
                 line: x.line,
                 type: x.type,
                 location: x.location,
