@@ -21,7 +21,7 @@ self.addEventListener('fetch', event => {
         if(!response) {
           response = await fetch(event.request);
           let url = new URL(event.request.url);
-          if(url.pathname !== "/loadVehicles" && url.pathname !== "/tripInfo") event.waitUntil(caches.open("zbiorkom").then(cache => cache.put(event.request, response).then(() => self.skipWaiting()))))
+          if(url.pathname !== "/loadVehicles" && url.pathname !== "/tripInfo") event.waitUntil(caches.open("zbiorkom").then(cache => cache.put(event.request, response).then(() => self.skipWaiting())))
         }
         return response;
     })
