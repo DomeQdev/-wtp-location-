@@ -12,7 +12,7 @@ const Main = () => {
 
         wss.onopen = () => {
             setConnected(true);
-            toast.warning("Przybliż mapę aby zobaczyć pojazdy.");
+            toast.warning("Wersja niestabilna i niewspierana. Użyj nowej dostępnej na zbiorkom.live.");
         };
         wss.onmessage = ({ data }) => {
             let parsed = JSON.parse(data);
