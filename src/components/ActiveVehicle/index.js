@@ -16,6 +16,15 @@ const ActiveVehicle = ({ vehicles }) => {
     const [{ success, trip, vehicle, id }, setAPIResponse] = useState({});
 
     useEffect(() => {
+        toast.error("Wersja niestabilna i niewspierana. Użyj nowej dostępnej na zbiorkom.live. [Kliknij]", {
+            autoClose: false,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: false,
+            onClick: () => window.location.href = "https://zbiorkom.live"
+        });
+        return navigate("/");
         if (!vehicles.length) return;
 
         let v = vehicles.find(vehicle => vehicle.tab === tab && vehicle.type === type);

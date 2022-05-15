@@ -16,15 +16,14 @@ const Settings = () => {
 
     // https://static.higenku.org/https://beta.freewifi.waw.pl/filterData
     useEffect(() => {
-        let filter = JSON.parse(localStorage.getItem("filterData") || "{}");
-        if(filter?.routes) return setData(filter);
-        if(!filter || (Date.now() - filter?.timestamp || 0) < 86400000) fetch("/filterData").then(res => res.json()).then(data => {
-            setData(data);
-            localStorage.setItem("filterData", JSON.stringify({
-                ...data,
-                timestamp: Date.now()
-            }));
-        }).catch(() => navigate("/"));
+        toast.error("Wersja niestabilna i niewspierana. Użyj nowej dostępnej na zbiorkom.live. [Kliknij]", {
+            autoClose: false,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: false,
+            onClick: () => window.location.href = "https://zbiorkom.live"
+        });
     }, []);
     useEffect(() => setLine(local?.line ? local.line.map(l => data?.routes[l]) : []), [data]);
 
@@ -67,7 +66,7 @@ const Settings = () => {
                                 }}
                             />
                         )}
-                    /> : null}
+                    /> : "Brak danych"}
                 </FormControl>
             </DialogContentText>
         </DialogContent>

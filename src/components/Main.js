@@ -7,12 +7,19 @@ const Main = () => {
     const [ connected, setConnected ] = useState(false);
 
     useEffect(() => {
+        toast.error("Wersja niestabilna i niewspierana. Użyj nowej dostępnej na zbiorkom.live. [Kliknij]", {
+            autoClose: false,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: false,
+            onClick: () => window.location.href = "https://zbiorkom.live"
+        });
         if(connected) return;
         let wss = new WebSocket("wss://ws.matfiu.repl.co");
 
         wss.onopen = () => {
             setConnected(true);
-            toast.warning("Wersja niestabilna i niewspierana. Użyj nowej dostępnej na zbiorkom.live.");
         };
         wss.onmessage = ({ data }) => {
             let parsed = JSON.parse(data);
@@ -31,7 +38,7 @@ const Main = () => {
         wss.onclose = () => setConnected(false);
     }, [ connected ]);
 
-    useEffect(() => fetch('/loadVehicles').then(res => res.json()).then(setVehicles), []);
+    //useEffect(() => fetch('/loadVehicles').then(res => res.json()).then(setVehicles), []);
 
     return <Vehicles vehicles={vehicles} />;
 };
